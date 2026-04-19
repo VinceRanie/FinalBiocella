@@ -1,11 +1,16 @@
 const nodemailer = require('nodemailer');
 
 // 🔎 Debugging: log env variables at startup
-console.log('🔎 Gmail OAuth2 config check:');
-console.log('Client ID:', process.env.GMAIL_CLIENT_ID || '❌ Missing');
-console.log('Client Secret:', process.env.GMAIL_CLIENT_SECRET ? '✅ Loaded' : '❌ Missing');
-console.log('Refresh Token:', process.env.GMAIL_REFRESH_TOKEN ? '✅ Loaded' : '❌ Missing');
-console.log('User Email:', process.env.GMAIL_USER || '❌ Missing');
+console.log('🔎 Email transport config check:');
+console.log('  Gmail OAuth2:');
+console.log('    Client ID:', process.env.GMAIL_CLIENT_ID || '❌ Missing');
+console.log('    Client Secret:', process.env.GMAIL_CLIENT_SECRET ? '✅ Loaded' : '❌ Missing');
+console.log('    Refresh Token:', process.env.GMAIL_REFRESH_TOKEN ? '✅ Loaded' : '❌ Missing');
+console.log('    User Email:', process.env.GMAIL_USER || '❌ Missing');
+console.log('  SMTP Fallback (Port 587):');
+console.log('    Host:', process.env.SMTP_HOST || '❌ Missing');
+console.log('    User:', process.env.SMTP_USER || '❌ Missing');
+console.log('    Pass:', process.env.SMTP_PASS ? '✅ Loaded' : '❌ Missing');
 
 // OAuth2 credentials for Gmail send
 const hasGmailOAuthConfig = !!(
@@ -15,9 +20,16 @@ const hasGmailOAuthConfig = !!(
   process.env.GMAIL_USER
 );
 
-const hasGmailConfig = hasGmailOAuthConfig;
+// SMTP fallback credentials
+const hasSmtpFallbackConfig = !!(
+  process.env.SMTP_HOST &&
+  process.env.SMTP_USER &&
+  process.env.SMTP_PASS
+);
 
-if (!hasGmailOAuthConfig) {
+const hasGmailConfig = hasGmailOAuthConfig || hasSmtpFallbackConfig;
+
+if (!hasGmailConfig) {
   console.warn('⚠️  Warning: No email credentials configured. Email notifications will be skipped.');
 }
 
@@ -73,43 +85,75 @@ const createTransporter = async () => {
   if (cachedTransporter) return cachedTransporter;
 
   try {
+    // Try OAuth2 first
     if (!oauth2Client && hasGmailOAuthConfig) {
       initializeGoogleAuth();
     }
 
-    if (!oauth2Client) {
-      throw new Error(
-        'Gmail OAuth2 not configured. Please set GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN, and GMAIL_USER environment variables.'
-      );
+    if (oauth2Client) {
+      try {
+        let accessToken;
+        try {
+          accessToken = await oauth2Client.getAccessToken();
+        } catch (error) {
+          console.error("❌ OAuth2 refresh token failed:", error.message);
+          console.error("   Attempting SMTP fallback...");
+          throw error;
+        }
+
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            type: 'OAuth2',
+            user: process.env.GMAIL_USER,
+            clientId: process.env.GMAIL_CLIENT_ID,
+            clientSecret: process.env.GMAIL_CLIENT_SECRET,
+            refreshToken: process.env.GMAIL_REFRESH_TOKEN,
+            accessToken: accessToken?.token
+          },
+          tls: { rejectUnauthorized: true },
+          connectionTimeout: 10000
+        });
+
+        cachedTransporter = transporter;
+        console.log('✅ Email transporter: Using Gmail OAuth2');
+        return transporter;
+      } catch (oauthError) {
+        // OAuth2 failed, fall back to SMTP if available
+        if (!hasSmtpFallbackConfig) {
+          throw new Error(
+            'Gmail OAuth2 failed and no SMTP fallback configured. Please set SMTP_HOST, SMTP_USER, and SMTP_PASS.'
+          );
+        }
+        console.log('⚠️  OAuth2 failed, using SMTP fallback...');
+      }
     }
 
-    let accessToken;
-    try {
-      accessToken = await oauth2Client.getAccessToken();
-    } catch (error) {
-      console.error("❌ Refresh token failed:", error);
-      console.error("Details:", error.response?.data || error.code || error.toString());
-      throw error; // rethrow so the caller knows it failed
+    // Use SMTP fallback
+    if (hasSmtpFallbackConfig) {
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT || '587'),
+        secure: false, // 587 uses STARTTLS, not TLS
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS
+        },
+        tls: { rejectUnauthorized: true },
+        connectionTimeout: 10000
+      });
+
+      cachedTransporter = transporter;
+      console.log(`✅ Email transporter: Using SMTP fallback (${process.env.SMTP_HOST}:${process.env.SMTP_PORT || 587})`);
+      return transporter;
     }
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'OAuth2',
-        user: process.env.GMAIL_USER,
-        clientId: process.env.GMAIL_CLIENT_ID,
-        clientSecret: process.env.GMAIL_CLIENT_SECRET,
-        refreshToken: process.env.GMAIL_REFRESH_TOKEN,
-        accessToken: accessToken?.token
-      },
-      tls: { rejectUnauthorized: true },
-      connectionTimeout: 10000
-    });
-
-    cachedTransporter = transporter;
-    return transporter;
+    // No method available
+    throw new Error(
+      'No email transport configured. Please set either Gmail OAuth2 or SMTP credentials.'
+    );
   } catch (error) {
-    console.error('❌ Error creating email transporter:', error);
+    console.error('❌ Error creating email transporter:', error.message);
     throw error;
   }
 };
@@ -137,7 +181,7 @@ const sendEmail = async (mailOptions) => {
   }
 };
 
-// 🔹 New helper to test refresh token
+// 🔹 Helper to test OAuth2 refresh token
 const testRefreshToken = async () => {
   try {
     if (!oauth2Client && hasGmailOAuthConfig) {
@@ -149,9 +193,36 @@ const testRefreshToken = async () => {
     }
 
     const accessToken = await oauth2Client.getAccessToken();
-    console.log('✅ Refresh token worked. Access token:', accessToken.token);
+    console.log('✅ OAuth2 refresh token works. Access token issued.');
   } catch (err) {
-    console.error('❌ Refresh token failed:', err.message || err);
+    console.error('❌ OAuth2 refresh token failed:', err.message || err);
+  }
+};
+
+// 🔹 Helper to test SMTP connection
+const testSmtpConnection = async () => {
+  if (!hasSmtpFallbackConfig) {
+    console.error('❌ SMTP not configured. Missing SMTP_HOST, SMTP_USER, or SMTP_PASS.');
+    return;
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || '587'),
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
+      },
+      tls: { rejectUnauthorized: true },
+      connectionTimeout: 10000
+    });
+
+    await transporter.verify();
+    console.log(`✅ SMTP connection successful (${process.env.SMTP_HOST}:${process.env.SMTP_PORT || 587})`);
+  } catch (err) {
+    console.error(`❌ SMTP connection failed (${process.env.SMTP_HOST}:${process.env.SMTP_PORT || 587}):`, err.message || err);
   }
 };
 
@@ -159,5 +230,6 @@ module.exports = {
   sendEmail,
   createTransporter,
   hasGmailConfig,
-  testRefreshToken // export helper
+  testRefreshToken,
+  testSmtpConnection // export new helper
 };

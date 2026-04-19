@@ -19,17 +19,29 @@ process.on('uncaughtException', (error) => {
 });
 
 // Enable CORS
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3001',
+  'http://localhost:3002',
+  'http://localhost:3000',
+  'https://it-3105-n-repo-98sx.vercel.app',
+  'https://it-3105-n-repo-sqsf.vercel.app',
+  'https://test-biocella.vercel.app',
+  'https://test22.dcism.org',
+  'https://biocella.dcism.org'
+];
+
+if (process.env.FRONTEND_URL && !allowedOrigins.includes(process.env.FRONTEND_URL)) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+}
+
 app.use(cors({
-  origin: [
-    'http://localhost:5173', 
-    'http://localhost:3001', 
-    'http://localhost:3002', 
-    'http://localhost:3000',
-    'https://it-3105-n-repo-98sx.vercel.app',
-    'https://it-3105-n-repo-sqsf.vercel.app',
-    'https://test-biocella.vercel.app',
-    'https://test22.dcism.org'
-  ],
+  origin: (origin, callback) => {
+    // Allow non-browser requests and same-origin requests without Origin header.
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true
 }));
