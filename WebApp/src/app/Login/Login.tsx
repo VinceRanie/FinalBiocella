@@ -25,7 +25,7 @@ export default function LoginForm() {
     setMessage(null); 
 
     try {
-      const response = await fetch("/biocella/API/auth/login", {
+      const response = await fetch("/API/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
