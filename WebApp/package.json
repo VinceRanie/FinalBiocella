@@ -20,7 +20,7 @@
     "jsqr": "^1.4.0",
     "lucide-react": "^0.527.0",
     "mysql2": "^3.14.3",
-    "next": "^16.0.8",
+    "next": "^16.2.6",
     "nodemailer": "^8.0.4",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
@@ -40,7 +40,7 @@
     "autoprefixer": "^10.5.0",
     "baseline-browser-mapping": "^2.10.11",
     "eslint": "^9",
-    "eslint-config-next": "15.4.4",
+    "eslint-config-next": "16.2.6",
     "postcss": "^8.5.10",
     "tailwindcss": "^4.2.2",
     "typescript": "^5"
