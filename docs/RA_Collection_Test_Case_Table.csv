@@ -1,0 +1,91 @@
+testcaseid,objecive,prerequeist,actions,inputs,expected output,actual output,comments,test results
+RAC-001,Open RA Collection page,Staff user logged in and API reachable,"Navigate to RA Dashboard > Collection",N/A,"Collection page loads with controls table and status filter",,,Not Run
+RAC-002,Route guard allows staff role,User role is staff,"Open RA collection route directly",Valid staff token,"Page is accessible and user stays in RA module",,,Not Run
+RAC-003,Route guard blocks non staff role,User role is admin or student,"Open RA collection route directly",Non staff token,"User is redirected based on access policy",,,Not Run
+RAC-004,Load specimen list from API,At least 1 specimen exists,"Open page and wait for loading to finish",N/A,"Spinner disappears and specimens are displayed",,,Not Run
+RAC-005,Handle empty specimen list,No specimen records in DB,"Open page",N/A,"Message shown no specimens found",,,Not Run
+RAC-006,Handle specimen list API failure,Force GET microbials endpoint to fail,"Open page",N/A,"Page does not crash and error is handled",,,Not Run
+RAC-007,Search by code_name,Specimens exist with known code_name,"Type query in search field",code_name keyword,"Only matching specimens are shown",,,Not Run
+RAC-008,Search by accession number,Specimens have accession_no or accession_number,"Type accession in search field",accession value,"Matching specimens are shown",,,Not Run
+RAC-009,Search by project title,Specimens linked to projects,"Type project title in search field",project keyword,"Rows are filtered by project title",,,Not Run
+RAC-010,Search by locale,Specimens contain locale values,"Type locale keyword in search field",locale keyword,"Rows are filtered by locale",,,Not Run
+RAC-011,Search by source,Specimens contain source values,"Type source keyword in search field",source keyword,"Rows are filtered by source",,,Not Run
+RAC-012,Search with no matches,Specimens exist,"Type random string",zzzz_not_found,"Table shows empty results state",,,Not Run
+RAC-013,Case insensitive search,Specimens with mixed case values exist,"Search using different letter case",MixedCase query,"Matching results still appear",,,Not Run
+RAC-014,Clear search restores filtered dataset,Search is currently applied,"Clear search field",N/A,"List returns to current status filtered set",,,Not Run
+RAC-015,Filter all status,Records include published and unpublished,"Select status filter all",all,"Both statuses are visible",,,Not Run
+RAC-016,Filter unpublished status,Records include both statuses,"Select status filter unpublished",unpublished,"Only unpublished records are shown",,,Not Run
+RAC-017,Filter published status,Records include both statuses,"Select status filter published",published,"Only published records are shown",,,Not Run
+RAC-018,Search plus status filter combined,Both status variants and searchable values exist,"Apply status filter then search",status plus query,"Both filters apply correctly",,,Not Run
+RAC-019,Sort by code ascending,At least 3 records with different codes,"Click Code header once",N/A,"Rows sorted ascending by code_name",,,Not Run
+RAC-020,Sort by code descending,RAC-019 completed,"Click Code header again",N/A,"Rows sorted descending by code_name",,,Not Run
+RAC-021,Sort by accession,Records with and without accession exist,"Click Accession header",N/A,"Rows sorted and null values handled",,,Not Run
+RAC-022,Sort by project,Records mapped to different projects,"Click Project header",N/A,"Rows sorted by project title",,,Not Run
+RAC-023,Sort by locale,Records include locale values,"Click Locale header",N/A,"Rows sorted by locale",,,Not Run
+RAC-024,Sort by source,Records include source values,"Click Source header",N/A,"Rows sorted by source",,,Not Run
+RAC-025,Sort by classification,Records include classification values,"Click Classification header",N/A,"Rows sorted by classification",,,Not Run
+RAC-026,Sort by status,Records include both statuses,"Click Status header",N/A,"Rows sorted by publish status",,,Not Run
+RAC-027,Expand row details panel,Specimens exist,"Click specimen row",N/A,"Details panel expands for selected row",,,Not Run
+RAC-028,Collapse row details panel,RAC-027 executed,"Click same row again",N/A,"Expanded panel collapses",,,Not Run
+RAC-029,Expanded row shows description,Selected record has description,"Expand record row",N/A,"Description is shown in details panel",,,Not Run
+RAC-030,Expanded row shows custom fields,Selected record has custom_fields,"Expand record row",N/A,"Custom fields render as key value pairs",,,Not Run
+RAC-031,Date formatting in expanded details,Record has date_accessed,"Expand record row",ISO date,"Date displayed in local format",,,Not Run
+RAC-032,Open New Project modal,RA collection page loaded,"Click New Project",N/A,"Project modal opens",,,Not Run
+RAC-033,Project required validation title,Project modal open,"Leave title empty and submit",Missing title,"Submission blocked by required field",,,Not Run
+RAC-034,Project required validation code,Project modal open,"Leave code empty and submit",Missing code,"Submission blocked by required field",,,Not Run
+RAC-035,Project required validation classification,Project modal open,"Leave classification empty and submit",Missing classification,"Submission blocked by required field",,,Not Run
+RAC-036,Create project success,Valid token and endpoint available,"Fill project fields and submit",Valid title code classification,"Success alert shown and project list refreshed",,,Not Run
+RAC-037,Edit project success,Existing project available,"Open project in edit mode then save",Updated project values,"Project is updated successfully",,,Not Run
+RAC-038,Project save API error handling,Force POST or PUT project endpoint fail,"Submit project modal",Valid payload,"Error alert shown and modal remains open",,,Not Run
+RAC-039,Open New Specimen modal,Collection page loaded,"Click New Specimen",N/A,"Specimen modal opens",,,Not Run
+RAC-040,Required validation project_id,Specimen modal open,"Leave project empty and submit",Missing project_id,"Submission blocked",,,Not Run
+RAC-041,Required validation code_name,Specimen modal open,"Leave code_name empty and submit",Missing code_name,"Submission blocked",,,Not Run
+RAC-042,Required validation classification,Specimen modal open,"Leave classification empty and submit",Missing classification,"Submission blocked",,,Not Run
+RAC-043,Required validation source,Specimen modal open,"Leave source empty and submit",Missing source,"Submission blocked",,,Not Run
+RAC-044,Required validation date_accessed,Specimen modal open,"Leave date_accessed empty and submit",Missing date_accessed,"Submission blocked",,,Not Run
+RAC-045,Create specimen with required fields,At least one project exists,"Fill required fields and save",Valid required values,"Specimen saved and success alert shown",,,Not Run
+RAC-046,Create specimen with full optional fields,At least one project exists,"Fill all major sections and save",Complete valid payload,"Specimen persisted with optional data",,,Not Run
+RAC-047,Edit specimen success,Existing specimen record,"Click edit modify values and save",Updated values,"Specimen updated and list refreshed",,,Not Run
+RAC-048,Specimen save API failure handling,Force specimen save endpoint fail,"Submit specimen form",Valid payload,"Error alert shown and modal remains open",,,Not Run
+RAC-049,Prevent duplicate submit,Specimen modal open and valid,"Double click save quickly",Valid payload,"One submission processed while submitting state is active",,,Not Run
+RAC-050,Reset modal when closing create mode,Create modal open with unsaved data,"Close modal then reopen new specimen",N/A,"Form resets to default values",,,Not Run
+RAC-051,Prefill values in edit mode,Existing specimen available,"Open edit modal",N/A,"Fields are prefilled with specimen data",,,Not Run
+RAC-052,Upload valid image file,Specimen modal open,"Upload image",PNG JPG WEBP,"Preview shown and file attached for submit",,,Not Run
+RAC-053,Upload unsupported image type,Specimen modal open,"Upload unsupported image type",Unsupported extension,"Input or backend rejects file with clear error",,,Not Run
+RAC-054,Replace existing image on edit,Specimen has existing image,"Edit and upload new image then save",Valid image file,"New image replaces old image",,,Not Run
+RAC-055,Upload FASTA file acceptance,Specimen modal open,"Upload FASTA file",Valid fasta file,"FASTA file attached for submission",,,Not Run
+RAC-056,Auto extract accession from FASTA,Accession field empty,"Upload FASTA with recognizable accession header",NCBI style header,"Accession field auto populates",,,Not Run
+RAC-057,Do not overwrite manual accession,Manual accession already entered,"Upload FASTA with different accession",Manual accession plus FASTA accession,"Manual value remains unchanged",,,Not Run
+RAC-058,FASTA without accession header,Accession field empty,"Upload FASTA without parseable accession",Generic header,"No auto fill occurs",,,Not Run
+RAC-059,Add custom field input,Specimen modal open,"Add custom field",Custom field name,"New custom key appears in form",,,Not Run
+RAC-060,Remove custom field input,At least one custom field exists,"Remove selected custom field",N/A,"Field is removed before save",,,Not Run
+RAC-061,View details navigation from table,Specimen has valid _id,"Click Eye action",N/A,"Navigates to specimen detail page",,,Not Run
+RAC-062,View action missing id handling,Inject malformed row missing _id,"Click Eye action",_id undefined,"User gets error alert for missing specimen id",,,Not Run
+RAC-063,Detail page load success,Valid specimen id route,"Open specimen detail page",Specimen id,"Detail page sections render correctly",,,Not Run
+RAC-064,Detail page invalid id handling,Use invalid or nonexistent id,"Open detail route directly",Invalid id,"No crash and graceful not found state",,,Not Run
+RAC-065,Detail tabs render all sections,Detail page loaded,"Switch tabs info bioactivity biochemical morphology genome",N/A,"Each tab renders expected content or empty state",,,Not Run
+RAC-066,Bioactivity empty state behavior,Record has no activity and result,"Open bioactivity tab",N/A,"No bioactivity data message shown",,,Not Run
+RAC-067,Biochemical tests display behavior,Record has partial biochemical tests,"Open biochemical tab",Mixed test values,"Only provided tests are shown with proper styling",,,Not Run
+RAC-068,Genome tab empty state,Record has no fasta and no blast results,"Open genome tab",N/A,"No genome data message shown",,,Not Run
+RAC-069,Submit BLAST success,Record has fasta_sequence,"Click Submit BLAST",N/A,"RID returned alert shown and polling starts",,,Not Run
+RAC-070,Submit BLAST without FASTA,Record has no fasta_sequence,"Click Submit BLAST",N/A,"Alert shows no FASTA sequence available",,,Not Run
+RAC-071,BLAST pending status handling,BLAST request submitted,"Check BLAST results",RID pending,"Pending state shown and app remains responsive",,,Not Run
+RAC-072,BLAST completed status handling,BLAST result becomes ready,"Check BLAST results",RID completed,"Results displayed in genome section",,,Not Run
+RAC-073,BLAST failed status handling,NCBI returns failed,"Check BLAST results",RID failed,"Failure message shown and polling stops",,,Not Run
+RAC-074,BLAST expired status handling,BLAST RID expired,"Check BLAST results",RID expired,"Expired status shown and re submit is possible",,,Not Run
+RAC-075,BLAST invalid response transient handling,Backend returns parse format error,"Check BLAST results",Invalid response format,"Flow retries gracefully without crash",,,Not Run
+RAC-076,BLAST timeout handling,Slow or interrupted network,"Check BLAST results",N/A,"Timeout handled gracefully and user can retry",,,Not Run
+RAC-077,Toggle publish unpublished to published,Selected row currently unpublished,"Click Publish action",N/A,"Status changes to published after refresh",,,Not Run
+RAC-078,Toggle publish published to unpublished,Selected row currently published,"Click Unpublish action",N/A,"Status changes to unpublished after refresh",,,Not Run
+RAC-079,Publish toggle API error handling,Force publish update endpoint fail,"Click Publish or Unpublish",N/A,"Error alert shown and status remains unchanged",,,Not Run
+RAC-080,No delete action for RA in list view,RA collection table loaded,"Inspect Actions column",N/A,"Delete option is not available in RA UI",,,Not Run
+RAC-081,Download QR code success,Specimen has qr_code,"Click Download QR Code",N/A,"PNG file downloads with expected naming pattern",,,Not Run
+RAC-082,QR empty state when unavailable,Specimen has no qr_code,"Open detail page",N/A,"QR placeholder shown and no download action",,,Not Run
+RAC-083,Generate PDF report success,Detail page loaded,"Click Download PDF",N/A,"PDF file is generated with specimen details",,,Not Run
+RAC-084,PDF generation without image,Specimen has no image_url,"Generate PDF",N/A,"PDF still generates without image errors",,,Not Run
+RAC-085,PDF generation with slow image fetch,Image URL is delayed or unreachable,"Generate PDF",N/A,"Timeout handled and PDF still generated",,,Not Run
+RAC-086,XSS protection in text fields,Save script payload in text inputs,"View list expanded row and detail",<script>alert(1)</script>,"Script not executed and text rendered safely",,,Not Run
+RAC-087,Long description rendering stability,Record has very long description,"Open expanded row and detail",Long text block,"Text wraps correctly and layout does not break",,,Not Run
+RAC-088,Large custom fields save handling,Create specimen with many custom fields,"Save specimen",20 plus custom fields,"Data saves and remains readable in detail view",,,Not Run
+RAC-089,Concurrent edit behavior observation,Two staff users edit same record,"Save changes from both sessions",Different edits,"System handles final persisted state without UI corruption",,,Not Run
+RAC-090,Token expiry during protected action,Use expired token,"Attempt save publish or blast action",Expired token,"Action fails gracefully and prompts re authentication flow if implemented",,,Not Run

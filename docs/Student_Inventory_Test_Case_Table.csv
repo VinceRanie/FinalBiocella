@@ -1,0 +1,101 @@
+TestCaseId,Objective,Prerequisite,Actions,Inputs,Expected Output,Actual Output,Comments,Test Results
+ST-INV-001,Open Student Inventory page,Student user logged in and API reachable,"Navigate to Users Dashboard > Inventory",N/A,"Inventory page loads with search filters table and pagination",,,Not Run
+ST-INV-002,Route access for student role,Student role session exists,"Open student inventory route directly",Valid student session,"Page is accessible for student role",,,Not Run
+ST-INV-003,Route access for faculty role,Faculty role session exists,"Open student inventory route directly",Valid faculty session,"Page is accessible for faculty role",,,Not Run
+ST-INV-004,Route guard for unauthenticated user,No valid session,"Open student inventory route directly",No token,"User is redirected to login",,,Not Run
+ST-INV-005,Initial fetch chemicals and batches success,APIs reachable and data exists,"Open inventory page",N/A,"Chemicals and batches load successfully",,,Not Run
+ST-INV-006,Loading spinner visibility,Simulate delayed API response,"Refresh inventory page",N/A,"Spinner is shown while loading then removed",,,Not Run
+ST-INV-007,Chemicals API failure handling,Simulate chemicals endpoint failure,"Open inventory page",N/A,"Error state shown without page crash",,,Not Run
+ST-INV-008,Batches API failure handling,Simulate batches endpoint failure,"Open inventory page",N/A,"Error state shown without page crash",,,Not Run
+ST-INV-009,Show only chemicals with active batches,Chemicals include entries with and without batches,"Open inventory page",N/A,"Table excludes chemicals that have no active batch",,,Not Run
+ST-INV-010,Empty table state,No chemicals match current filters,"Apply restrictive filters",N/A,"No chemicals found message is shown",,,Not Run
+ST-INV-011,Results count label accuracy,Rows are available,"Observe count text above table",N/A,"Showing X of Y chemicals reflects filtered and paged data",,,Not Run
+ST-INV-012,Search by exact chemical name,Known name exists,"Type full name in search",Exact chemical name,"Matching row appears",,,Not Run
+ST-INV-013,Search by partial chemical name,Known name exists,"Type partial text in search",Partial text,"Matching rows are filtered correctly",,,Not Run
+ST-INV-014,Search is case insensitive,Mixed case data exists,"Search using different casing",Upper and lower input,"Matches still appear",,,Not Run
+ST-INV-015,Search with no matches,Data exists,"Type random query",zzzz_not_found,"Table shows no chemicals found",,,Not Run
+ST-INV-016,Clear search restores current filter set,Search currently applied,"Clear search input",N/A,"Rows return according to active type and unit filters",,,Not Run
+ST-INV-017,Search with leading and trailing spaces,Data exists,"Enter spaced query","  ethanol  ","Search handles input safely and consistently",,,Not Run
+ST-INV-018,Search special characters stability,Data exists,"Enter symbol-heavy query",%_#@!,"UI stays stable and no script executes",,,Not Run
+ST-INV-019,Type filter all,Multiple type values exist,"Select All Types",all,"All types are included",,,Not Run
+ST-INV-020,Type filter specific value,Multiple type values exist,"Select a specific type",Acid or Base,"Only selected type rows remain",,,Not Run
+ST-INV-021,Unit filter all,Multiple units exist,"Select All Units",all,"All units are included",,,Not Run
+ST-INV-022,Unit filter specific value,Multiple units exist,"Select specific unit",mL or g,"Only selected unit rows remain",,,Not Run
+ST-INV-023,Combined search and type filter,Data supports both criteria,"Set type filter then search",Type plus keyword,"Both conditions apply together",,,Not Run
+ST-INV-024,Combined search and unit filter,Data supports both criteria,"Set unit filter then search",Unit plus keyword,"Both conditions apply together",,,Not Run
+ST-INV-025,Combined type and unit filters,Data supports combinations,"Set type and unit filters",Type plus unit,"Rows satisfy both filters",,,Not Run
+ST-INV-026,Filter change resets to first page,Currently on page greater than 1,"Change any filter",N/A,"Pagination resets to page 1",,,Not Run
+ST-INV-027,Unique type options in dropdown,Duplicate type values exist in dataset,"Open type dropdown",N/A,"Type options show unique values only",,,Not Run
+ST-INV-028,Unique unit options in dropdown,Duplicate unit values exist in dataset,"Open unit dropdown",N/A,"Unit options show unique values only",,,Not Run
+ST-INV-029,Low stock row visual indicator,Chemical where quantity less than or equal threshold exists,"Open inventory table",N/A,"Row is highlighted and Low Stock badge appears",,,Not Run
+ST-INV-030,In stock row visual indicator,Chemical where quantity above threshold exists,"Open inventory table",N/A,"In Stock badge appears",,,Not Run
+ST-INV-031,Remaining quantity displayed from batch,Chemical has batch quantity and used_quantity,"Inspect quantity column",N/A,"Displayed quantity equals batch quantity minus used quantity",,,Not Run
+ST-INV-032,Location display from linked batch,Chemical has batch location,"Inspect location column",N/A,"Location shows linked batch location",,,Not Run
+ST-INV-033,Location fallback display,Linked batch missing location,"Inspect location column",N/A,"N or A fallback is shown",,,Not Run
+ST-INV-034,Expiration date local format,Batch has expiration_date,"Inspect Exp Date column",ISO date,"Date is displayed in local date format",,,Not Run
+ST-INV-035,Expiration date fallback,No expiration date available,"Inspect Exp Date column",N/A,"N or A fallback is shown",,,Not Run
+ST-INV-036,Long chemical name layout stability,Record with very long name exists,"Open inventory table",Long name,"Layout remains readable and does not break",,,Not Run
+ST-INV-037,Table horizontal scroll on small viewport,Mobile width viewport,"Open inventory page on small screen",N/A,"Table remains usable with horizontal scroll",,,Not Run
+ST-INV-038,Pagination appears when row count exceeds page size,More than 10 filtered chemicals exist,"Open inventory table",N/A,"Pagination controls are visible",,,Not Run
+ST-INV-039,Pagination next page action,At least two pages exist,"Click Next",N/A,"Current page increments and next rows show",,,Not Run
+ST-INV-040,Pagination previous page action,Currently on page greater than 1,"Click Previous",N/A,"Current page decrements and previous rows show",,,Not Run
+ST-INV-041,Pagination first page boundary,Currently on first page,"Inspect Previous button",N/A,"Previous button is disabled",,,Not Run
+ST-INV-042,Pagination last page boundary,Currently on last page,"Inspect Next button",N/A,"Next button is disabled",,,Not Run
+ST-INV-043,Pagination page label accuracy,Multiple pages exist,"Navigate across pages",N/A,"Page X of Y label updates correctly",,,Not Run
+ST-INV-044,No add button visible for students,Student inventory page loaded,"Inspect page controls",N/A,"No Add Chemical action is available in student UI",,,Not Run
+ST-INV-045,No edit button visible for students,Student inventory page loaded,"Inspect table actions",N/A,"No Edit action is available in student UI",,,Not Run
+ST-INV-046,No delete button visible for students,Student inventory page loaded,"Inspect table actions",N/A,"No Delete action is available in student UI",,,Not Run
+ST-INV-047,No batch view button visible for students,Student inventory page loaded,"Inspect table actions",N/A,"No direct batch action control is shown in student table",,,Not Run
+ST-INV-048,Student cannot open add chemical modal via UI,Student inventory page loaded,"Try to find add trigger",N/A,"Add modal cannot be opened from student UI",,,Not Run
+ST-INV-049,Student cannot open edit modal via UI,Student inventory page loaded,"Try to find edit trigger",N/A,"Edit modal cannot be opened from student UI",,,Not Run
+ST-INV-050,Student cannot open delete modal via UI,Student inventory page loaded,"Try to find delete trigger",N/A,"Delete modal cannot be opened from student UI",,,Not Run
+ST-INV-051,Direct student batch page load success,Valid batch id exists and user authenticated,"Open student batch detail route",Valid batch id,"Batch page loads with batch information",,,Not Run
+ST-INV-052,Batch page invalid id handling,Invalid batch id provided,"Open student batch detail route",Invalid batch id,"Error state shown with back navigation",,,Not Run
+ST-INV-053,Batch page loading spinner behavior,Delayed batch API response,"Open batch detail page",N/A,"Loading spinner appears until data is ready",,,Not Run
+ST-INV-054,Batch page displays chemical name,Batch has chemical_name,"Open batch detail page",N/A,"Chemical name is displayed",,,Not Run
+ST-INV-055,Batch page fallback chemical label,Batch missing chemical_name,"Open batch detail page",N/A,"Fallback Chemical ID label is displayed",,,Not Run
+ST-INV-056,Batch page displays location,Batch has location,"Open batch detail page",N/A,"Location value is shown",,,Not Run
+ST-INV-057,Batch page expiration date format,Batch has expiration_date,"Open batch detail page",ISO date,"Expiration date shown in local format",,,Not Run
+ST-INV-058,Batch page date received format,Batch has date_received,"Open batch detail page",ISO date,"Date received shown in local format",,,Not Run
+ST-INV-059,Batch page remaining quantity calculation,Batch has quantity and used_quantity,"Open batch detail page",N/A,"Remaining equals quantity minus used quantity",,,Not Run
+ST-INV-060,Batch progress bar threshold coloring,Batches with varying usage levels exist,"Open batch detail page",Different percentage values,"Progress bar color changes by usage thresholds",,,Not Run
+ST-INV-061,Log usage amount required,Batch page loaded,"Submit log usage with empty amount",Missing amount,"Form required validation blocks submit",,,Not Run
+ST-INV-062,Log usage purpose required,Batch page loaded,"Submit log usage with empty purpose",Missing purpose,"Form required validation blocks submit",,,Not Run
+ST-INV-063,Log usage amount lower bound,Batch page loaded,"Enter negative amount and submit",Negative value,"Input validation prevents invalid amount",,,Not Run
+ST-INV-064,Log usage amount zero behavior,Batch page loaded,"Enter zero amount and submit",0,"System handles zero amount according to business rule",,,Not Run
+ST-INV-065,Log usage amount above remaining blocked,Batch has limited remaining quantity,"Submit amount greater than remaining",Over-limit amount,"Error shown cannot use more than available quantity",,,Not Run
+ST-INV-066,Log usage success with valid data,Batch has remaining quantity and user authenticated,"Submit valid usage form",Valid amount and purpose,"Batch used quantity updates and usage log is created",,,Not Run
+ST-INV-067,Log usage API failure during batch update,Simulate batch update failure,"Submit valid usage form",Valid usage payload,"Error message shown for batch update failure",,,Not Run
+ST-INV-068,Log usage API failure during usage create,Simulate usage endpoint failure,"Submit valid usage form",Valid usage payload,"Error message shown for usage log creation failure",,,Not Run
+ST-INV-069,Log usage button disabled while saving,Simulate slow save response,"Submit usage form",Valid payload,"Button disabled and logging state shown",,,Not Run
+ST-INV-070,Log usage disabled when batch consumed,Batch remaining quantity equals zero,"Open batch detail page",N/A,"Log Usage button disabled and consumed message shown",,,Not Run
+ST-INV-071,User not authenticated on batch page,Clear session user data,"Open batch detail route",No userId,"User sees authentication error and cannot log usage",,,Not Run
+ST-INV-072,Back button on batch page navigation,Batch page loaded,"Click Back to Inventory",N/A,"User returns to inventory screen",,,Not Run
+ST-INV-073,Batch page route back path correctness,Batch page loaded,"Click Back to Inventory",N/A,"Navigation target matches expected student inventory route policy",,,Not Run
+ST-INV-074,Inventory error recovery after API restored,Initial load failed then APIs restored,"Reload inventory page",N/A,"Error clears and data loads successfully",,,Not Run
+ST-INV-075,Search and pagination interaction correctness,Multiple pages and active search,"Search then navigate pages",Query plus pagination,"Page content and counts remain consistent",,,Not Run
+ST-INV-076,Type filter and pagination interaction correctness,Multiple pages and types,"Apply type filter then paginate",Type value,"Filtered rows paginate correctly",,,Not Run
+ST-INV-077,Unit filter and pagination interaction correctness,Multiple pages and units,"Apply unit filter then paginate",Unit value,"Filtered rows paginate correctly",,,Not Run
+ST-INV-078,Combined filters produce deterministic result,Dataset has known expected subset,"Apply search type and unit together",Combined filter values,"Returned rows match expected subset",,,Not Run
+ST-INV-079,Student cannot create chemical via direct API,Student session token available,"Call POST chemicals endpoint",Valid chemical payload,"Request should be denied by role policy",,,Not Run
+ST-INV-080,Student cannot update chemical via direct API,Student session token available,"Call PUT chemicals endpoint",Valid chemical update payload,"Request should be denied by role policy",,,Not Run
+ST-INV-081,Student cannot delete chemical via direct API,Student session token available,"Call DELETE chemicals endpoint",Chemical id,"Request should be denied by role policy",,,Not Run
+ST-INV-082,Student cannot create batch via direct API,Student session token available,"Call POST batches endpoint",Valid batch payload,"Request should be denied by role policy",,,Not Run
+ST-INV-083,Student cannot update batch via direct API,Student session token available,"Call PUT batches endpoint",Valid batch payload,"Request should be denied by role policy",,,Not Run
+ST-INV-084,Student cannot delete batch via direct API,Student session token available,"Call DELETE batches endpoint",Batch id,"Request should be denied by role policy",,,Not Run
+ST-INV-085,Student cannot create usage log via direct API,Student session token available,"Call POST usage endpoint",Valid usage payload,"Request should be denied by role policy",,,Not Run
+ST-INV-086,Unauthorized request to chemicals blocked,No token provided,"Call GET chemicals endpoint",No auth header,"Request blocked by authentication middleware",,,Not Run
+ST-INV-087,Unauthorized request to batches blocked,No token provided,"Call GET batches endpoint",No auth header,"Request blocked by authentication middleware",,,Not Run
+ST-INV-088,Unauthorized request to usage blocked,No token provided,"Call POST usage endpoint",No auth header,"Request blocked by authentication middleware",,,Not Run
+ST-INV-089,XSS safety in chemical name rendering,Data contains script payload in name,"Open inventory table",script-like chemical name,"Payload is rendered as text and not executed",,,Not Run
+ST-INV-090,XSS safety in location rendering,Data contains script payload in location,"Open inventory and batch detail",script-like location,"Payload is rendered safely without execution",,,Not Run
+ST-INV-091,Large dataset performance smoke test,Dataset contains many chemicals and batches,"Open inventory and apply filters",Large data volume,"UI remains responsive and filtering completes",,,Not Run
+ST-INV-092,Numeric precision handling in quantity display,Batch quantities include decimals,"Open inventory and batch detail",Decimal quantities,"Displayed values are accurate and consistent",,,Not Run
+ST-INV-093,Timezone consistency for date displays,Users in different timezone settings,"Open inventory and batch detail",Locale and timezone variations,"Dates render consistently according to locale rules",,,Not Run
+ST-INV-094,Refresh persistence behavior,Filters set then page refreshed,"Set filters then refresh",Type unit and search values,"Page reload behavior follows intended UX for filter persistence",,,Not Run
+ST-INV-095,Keyboard accessibility basic controls,Use keyboard only navigation,"Tab through search filters pagination buttons",Keyboard input,"Interactive controls are reachable and operable",,,Not Run
+ST-INV-096,Screen resize responsiveness desktop to mobile,Page loaded on desktop then resized,"Resize viewport",Desktop and mobile widths,"Layout adapts without overlap or hidden critical controls",,,Not Run
+ST-INV-097,Error messaging clarity for failed operations,Simulate multiple failure cases,"Trigger fetch and save failures",API failures,"Error messages are understandable and actionable",,,Not Run
+ST-INV-098,Concurrent usage logging observation,Two users submit usage near same time,"Submit usage from two sessions",Near-simultaneous updates,"System prevents negative inventory and handles final state safely",,,Not Run
+ST-INV-099,Input sanitation for purpose text,Usage purpose includes special characters,"Submit usage form",Special characters and long text,"Input handled safely and stored without breaking UI",,,Not Run
+ST-INV-100,End to end student inventory workflow smoke test,Student account with valid data,"Open inventory search filter inspect batch and log valid usage",Typical user journey,"Core student inventory workflow completes without blocking issues",,,Not Run

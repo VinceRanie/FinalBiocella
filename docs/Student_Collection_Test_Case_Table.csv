@@ -1,0 +1,101 @@
+testcaseid,objecive,prerequeist,actions,inputs,expected output,actual output,comments,test results
+STC-001,Open Student Collection page,Student user logged in and API reachable,"Navigate to Users Dashboard > Collection",N/A,"Collection page loads with search and specimens table",,,Not Run
+STC-002,Role redirect sends student to collection,Student role session exists,"Login as student",Valid student account,"User is redirected to UserCollection route",,,Not Run
+STC-003,Role redirect sends faculty to collection,Faculty role session exists,"Login as faculty",Valid faculty account,"User is redirected to UserCollection route",,,Not Run
+STC-004,Route guard blocks unauthorized user,No valid session,"Open UserCollection route directly",No token,"User is redirected to authentication flow",,,Not Run
+STC-005,Initial specimen fetch success,Published specimens exist,"Open collection page and wait",N/A,"Spinner disappears and published specimens are displayed",,,Not Run
+STC-006,Initial loading spinner behavior,Simulate delayed network,"Refresh collection page",N/A,"Loading spinner is shown until API completes",,,Not Run
+STC-007,Handle specimen list API failure,Force GET microbials endpoint failure,"Open collection page",N/A,"Page remains stable and error is handled without crash",,,Not Run
+STC-008,Handle empty published list,No published specimens in DB,"Open collection page",N/A,"Table shows no specimens found state",,,Not Run
+STC-009,Published filter only shows published rows,DB contains published and unpublished,"Open collection page",Mixed status dataset,"Only published specimens are visible to student",,,Not Run
+STC-010,Unpublished hidden even when status missing,Record exists without publish_status,"Open collection page",Record with missing status,"Behavior follows student visibility policy for safe defaults",,,Not Run
+STC-011,Search by code_name,Known code exists,"Type code keyword in search",code_name,"Only matching specimens are shown",,,Not Run
+STC-012,Search by accession_number,Known accession exists,"Type accession in search",accession_number,"Matching specimens are shown",,,Not Run
+STC-013,Search by accession_no fallback,Known accession_no exists,"Type accession in search",accession_no,"Matching specimens are shown",,,Not Run
+STC-014,Search by classification,Known classification exists,"Type classification in search",classification keyword,"Rows are filtered by classification",,,Not Run
+STC-015,Search by source,Known source exists,"Type source keyword in search",source keyword,"Rows are filtered by source",,,Not Run
+STC-016,Search by locale,Known locale exists,"Type locale keyword in search",locale keyword,"Rows are filtered by locale",,,Not Run
+STC-017,Search by project title,Specimens linked to project object,"Type project title in search",project title,"Rows are filtered by project title",,,Not Run
+STC-018,Search with no matches,Dataset exists,"Type random unmatched string",zzzz_not_found,"Empty results state appears",,,Not Run
+STC-019,Case insensitive search,Mixed case values exist,"Search using alternate casing",MixedCase query,"Matching results still appear",,,Not Run
+STC-020,Clear search restores full student dataset,Search active,"Clear search input",N/A,"List returns to all student-visible specimens",,,Not Run
+STC-021,Search with leading and trailing spaces,Dataset exists,"Enter spaced query in search","  keyword  ","Search still finds expected results per input handling",,,Not Run
+STC-022,Search special characters safety,Dataset exists,"Enter symbols in search",%_#@!,"No crash or script execution and safe filtering behavior",,,Not Run
+STC-023,Search long input stability,Dataset exists,"Paste very long query",500 plus chars,"UI remains responsive and filtering does not crash",,,Not Run
+STC-024,Table row count label accuracy,At least 1 specimen visible,"Observe footer count text",N/A,"Showing N specimen(s) matches rendered rows",,,Not Run
+STC-025,Expand row details panel,Specimens visible,"Click a specimen row",N/A,"Details panel expands for selected row",,,Not Run
+STC-026,Collapse same row details panel,STC-025 completed,"Click same row again",N/A,"Expanded panel collapses",,,Not Run
+STC-027,Switch expanded row to another row,At least 2 specimens visible,"Click row A then row B",N/A,"Expansion moves to selected row only",,,Not Run
+STC-028,Expanded panel shows description,Selected specimen has description,"Expand specimen row",N/A,"Description text is shown",,,Not Run
+STC-029,Expanded panel handles missing description,Selected specimen missing description,"Expand specimen row",N/A,"Fallback no description available is shown",,,Not Run
+STC-030,Expanded panel shows date_accessed format,Selected specimen has date_accessed,"Expand specimen row",ISO date,"Date is displayed in local date format",,,Not Run
+STC-031,Expanded panel shows project_fund,Selected specimen has project_fund,"Expand specimen row",N/A,"Project fund value is rendered",,,Not Run
+STC-032,Expanded panel shows similarity percent,Selected specimen has similarity_percent,"Expand specimen row",N/A,"Similarity percentage is displayed",,,Not Run
+STC-033,Expanded panel shows catalase field,Selected specimen has catalase,"Expand specimen row",N/A,"Catalase value is displayed",,,Not Run
+STC-034,Expanded panel shows oxidase field,Selected specimen has oxidase,"Expand specimen row",N/A,"Oxidase value is displayed",,,Not Run
+STC-035,Expanded panel shows growth_media field,Selected specimen has growth_media,"Expand specimen row",N/A,"Growth media value is displayed",,,Not Run
+STC-036,Expanded panel renders custom fields,Selected specimen has custom_fields,"Expand specimen row",Custom key values,"Custom fields render as key value entries",,,Not Run
+STC-037,Expanded panel handles many custom fields,Specimen has many custom fields,"Expand specimen row",20 plus custom fields,"Layout remains readable and stable",,,Not Run
+STC-038,View details action from table,Specimen has valid _id,"Click Eye action",N/A,"Navigates to student specimen detail page",,,Not Run
+STC-039,View action missing id guard,Inject malformed row without _id,"Click Eye action",_id undefined,"User sees ID missing error and app stays stable",,,Not Run
+STC-040,No create buttons in student controls,Student collection page loaded,"Inspect top controls",N/A,"No New Project and no New Specimen button shown",,,Not Run
+STC-041,No edit action in student table,Student collection table loaded,"Inspect actions column",N/A,"Only view action is available for students",,,Not Run
+STC-042,No delete action in student table,Student collection table loaded,"Inspect actions column",N/A,"Delete action is not available for students",,,Not Run
+STC-043,No publish toggle in student table,Student collection table loaded,"Inspect actions and row controls",N/A,"Publish or unpublish controls are not available",,,Not Run
+STC-044,Student cannot open project modal from UI,Student page loaded,"Try to trigger project creation from UI",N/A,"Project modal cannot be opened through student UI",,,Not Run
+STC-045,Student cannot open specimen modal from UI,Student page loaded,"Try to trigger specimen add edit from UI",N/A,"Specimen modal cannot be opened through student UI",,,Not Run
+STC-046,Detail page load success for published specimen,Valid published specimen id,"Open detail route",Specimen id,"Detail page sections render successfully",,,Not Run
+STC-047,Detail page invalid id handling,Invalid id provided,"Open detail route directly",Invalid id,"Page shows not found state without crash",,,Not Run
+STC-048,Detail page unpublished id hidden from student,Use unpublished specimen id,"Open detail route directly",Unpublished specimen id,"Student receives not found behavior",,,Not Run
+STC-049,Detail page loading spinner behavior,Delayed detail API response,"Open detail page",N/A,"Loading spinner shown until fetch completes",,,Not Run
+STC-050,Back navigation from detail page,Detail page open,"Click Back arrow",N/A,"User returns to previous collection screen",,,Not Run
+STC-051,Info tab default selection,Detail page loaded,"Open detail page",N/A,"Info tab is active by default",,,Not Run
+STC-052,Tab switch bioactivity,Detail page loaded,"Click bioactivity tab",N/A,"Bioactivity panel is shown",,,Not Run
+STC-053,Tab switch biochemical,Detail page loaded,"Click biochemical tab",N/A,"Biochemical panel is shown",,,Not Run
+STC-054,Tab switch morphology,Detail page loaded,"Click morphology tab",N/A,"Morphology panel is shown",,,Not Run
+STC-055,Tab switch genome,Detail page loaded,"Click genome tab",N/A,"Genome panel is shown",,,Not Run
+STC-056,Info tab renders basic fields,Published detail record exists,"Open info tab",N/A,"Code accession project classification locale source and related fields render",,,Not Run
+STC-057,Info tab handles missing optional fields,Record has partial data,"Open info tab",N/A,"Missing optional values show safe fallback such as N or A",,,Not Run
+STC-058,Description section conditional render,One record with description and one without,"Open info tab for each record",N/A,"Description section appears only when description exists",,,Not Run
+STC-059,Additional info custom fields render,Record has custom_fields,"Open info tab",Custom fields,"Additional Information section renders custom keys",,,Not Run
+STC-060,Bioactivity empty state behavior,Record has no activity and result,"Open bioactivity tab",N/A,"No bioactivity data available message shown",,,Not Run
+STC-061,Bioactivity populated behavior,Record has activity and result,"Open bioactivity tab",N/A,"Activity and result values render correctly",,,Not Run
+STC-062,Biochemical empty state behavior,Record has no biochemical data,"Open biochemical tab",N/A,"No biochemical data available message shown",,,Not Run
+STC-063,Biochemical badge color coding,Record has plus and minus values,"Open biochemical tab",Mixed test values,"Positive and negative values use intended visual styles",,,Not Run
+STC-064,Biochemical test grid render,Record has multiple biochemical tests,"Open biochemical tab",Multiple test keys,"Tests render in grid without truncation issues",,,Not Run
+STC-065,Morphology placeholder behavior,Detail page loaded,"Open morphology tab",N/A,"Morphology placeholder message shown when data not available",,,Not Run
+STC-066,Genome empty state behavior,Record has no fasta and no blast results,"Open genome tab",N/A,"No genome data available message shown",,,Not Run
+STC-067,Genome FASTA file name render,Record has fasta_file,"Open genome tab",N/A,"FASTA file name is displayed",,,Not Run
+STC-068,Genome FASTA sequence render,Record has fasta_sequence,"Open genome tab",N/A,"Sequence renders in scrollable monospace block",,,Not Run
+STC-069,Genome BLAST RID visible when active,Record has non expired blast_rid,"Open genome tab",N/A,"BLAST request ID panel is shown",,,Not Run
+STC-070,Genome BLAST RID hidden when expired,Record has expired blast_rid,"Open genome tab",Expired RID record,"RID status panel is hidden per expiry logic",,,Not Run
+STC-071,Genome BLAST pending message,Record has blast_rid but no blast_results,"Open genome tab",Pending RID,"Pending guidance message is visible",,,Not Run
+STC-072,Genome BLAST top hit summary,Record has blast_results with topHit,"Open genome tab",BLAST results payload,"Best match summary card is shown",,,Not Run
+STC-073,Genome BLAST matches list render,Record has multiple matches,"Open genome tab",BLAST matches array,"Top matches list renders with rank accession and similarity",,,Not Run
+STC-074,Genome BLAST match accordion toggle,BLAST matches available,"Expand and collapse a match item",N/A,"Accordion toggles details without UI issues",,,Not Run
+STC-075,Genome BLAST external link behavior,BLAST match has accession,"Click accession link",NCBI accession,"Link opens NCBI page in new tab safely",,,Not Run
+STC-076,Specimen image render when available,Detail record has image_url,"Open detail page",N/A,"Specimen image is displayed in image card",,,Not Run
+STC-077,Specimen image fallback when missing,Detail record has no image_url,"Open detail page",N/A,"No image available placeholder is shown",,,Not Run
+STC-078,QR code render when available,Detail record has qr_code,"Open detail page",N/A,"QR image is displayed",,,Not Run
+STC-079,QR code fallback when missing,Detail record has no qr_code,"Open detail page",N/A,"QR code not generated message is shown",,,Not Run
+STC-080,Download QR code success,Detail record has qr_code,"Click Download QR Code",N/A,"PNG file downloads with specimen code and date naming",,,Not Run
+STC-081,Download QR unavailable when missing,Detail record has no qr_code,"Open detail page",N/A,"Download QR button is not shown",,,Not Run
+STC-082,Generate PDF success,Published detail record loaded,"Click Download PDF",N/A,"PDF report downloads with specimen information",,,Not Run
+STC-083,PDF button loading state,Simulate slower PDF generation,"Click Download PDF",N/A,"Button shows Generating state and is disabled during generation",,,Not Run
+STC-084,PDF generation without image,Record has no image_url,"Click Download PDF",N/A,"PDF still generates successfully without image",,,Not Run
+STC-085,PDF generation with slow or unreachable image,Record has broken or slow image URL,"Click Download PDF",N/A,"Image timeout handled and PDF generation still completes",,,Not Run
+STC-086,PDF includes basic info fields,Record has typical data,"Generate and inspect PDF",N/A,"Basic information fields are printed correctly",,,Not Run
+STC-087,PDF includes custom fields,Record has custom_fields,"Generate and inspect PDF",N/A,"Additional custom fields section is included",,,Not Run
+STC-088,PDF includes bioactivity when present,Record has activity and result,"Generate and inspect PDF",N/A,"Bioactivity section appears with values",,,Not Run
+STC-089,PDF includes biochemical tests when present,Record has biochemical data,"Generate and inspect PDF",N/A,"Biochemical section and test values are included",,,Not Run
+STC-090,PDF includes genome section when present,Record has fasta or blast data,"Generate and inspect PDF",N/A,"Genome section appears with available values",,,Not Run
+STC-091,PDF handles long description wrapping,Record has long multi paragraph description,"Generate and inspect PDF",Long description text,"Text wraps and pages break without overlap",,,Not Run
+STC-092,Student cannot create specimen via direct API,Student session token exists,"Call POST microbials endpoint directly",Valid specimen payload,"Request should be denied by role policy",,,Not Run
+STC-093,Student cannot update specimen via direct API,Student session token exists,"Call PUT microbials endpoint directly",Valid update payload,"Request should be denied by role policy",,,Not Run
+STC-094,Student cannot delete specimen via direct API,Student session token exists,"Call DELETE microbials endpoint directly",Specimen id,"Request should be denied by role policy",,,Not Run
+STC-095,Student cannot force publish via direct API,Student session token exists,"Call PUT microbials with publish_status published",Specimen id plus publish_status,"Request should be denied by role policy",,,Not Run
+STC-096,Student cannot list unpublished via role query tampering,Unpublished records exist,"Call GET microbials with status unpublished and role student",status unpublished,"Response excludes unpublished data",,,Not Run
+STC-097,Student visibility cannot be bypassed from UI route,User knows unpublished specimen id,"Open student detail route with unpublished id",Unpublished id,"User receives not found and no data leakage",,,Not Run
+STC-098,XSS payload safety in rendered fields,Record contains script text in description or custom fields,"Open list expansion and detail tabs",script payload,"Script is treated as text and not executed",,,Not Run
+STC-099,Long text layout stability across list and detail,Record has very long strings,"Open list expansion and detail",Long text fields,"UI wraps text and layout remains usable",,,Not Run
+STC-100,Responsive behavior on mobile viewport,Student collection and detail pages loaded,"Test at mobile width and desktop width",Viewport changes,"Search table detail tabs and actions remain usable across sizes",,,Not Run

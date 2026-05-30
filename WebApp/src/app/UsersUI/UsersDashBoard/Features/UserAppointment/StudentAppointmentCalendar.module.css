@@ -1,0 +1,277 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  border-radius: 12px;
+}
+
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.header p {
+  font-size: 1.1rem;
+  margin: 10px 0 0 0;
+  opacity: 0.9;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.dayBox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid white;
+}
+
+.dayBox.available {
+  background-color: #4ade80;
+  border-color: #22c55e;
+}
+
+.dayBox.partial {
+  background-color: #fb923c;
+  border-color: #f97316;
+}
+
+.dayBox.booked {
+  background-color: #ef4444;
+  border-color: #dc2626;
+}
+
+.dayBox.disabled {
+  background-color: #9ca3af;
+  border-color: #6b7280;
+}
+
+/* Calendar */
+.calendar {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.monthHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.monthHeader button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.monthHeader button:hover {
+  background: #764ba2;
+  transform: scale(1.05);
+}
+
+.monthHeader h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
+  min-width: 200px;
+  text-align: center;
+}
+
+/* Weekday headers */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.weekday {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  color: #666;
+}
+
+/* Days grid */
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.emptyDay {
+  aspect-ratio: 1;
+  background: transparent;
+}
+
+.day {
+  aspect-ratio: 1;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+  position: relative;
+  background: white;
+}
+
+.day.available {
+  background: #f0fdf4;
+  border-color: #4ade80;
+  box-shadow: 0 2px 8px rgba(74, 222, 128, 0.2);
+}
+
+.day.available:hover {
+  background: #dcfce7;
+  border-color: #22c55e;
+  transform: scale(1.05);
+}
+
+.day.partial {
+  background: #fff7ed;
+  border-color: #fb923c;
+  box-shadow: 0 2px 8px rgba(251, 146, 60, 0.2);
+}
+
+.day.partial:hover {
+  background: #fed7aa;
+  border-color: #f97316;
+  transform: scale(1.05);
+}
+
+.day.booked {
+  background: #fef2f2;
+  border-color: #ef4444;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.day.booked:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
+  transform: none;
+}
+
+.day.disabled {
+  background: #d1d5db;
+  border-color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 1;
+  color: #6b7280;
+}
+
+.day.disabled:hover {
+  background: #d1d5db;
+  border-color: #9ca3af;
+  transform: none;
+}
+
+.day.disabled .dayNumber {
+  color: #6b7280;
+}
+
+.day.disabled:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  transform: none;
+}
+
+.dayNumber {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.slots {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.red {
+  color: #ef4444;
+}
+
+.orange {
+  color: #fb923c;
+}
+
+.green {
+  color: #4ade80;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .calendar {
+    padding: 15px;
+  }
+
+  .daysGrid {
+    gap: 6px;
+  }
+
+  .day {
+    padding: 6px;
+    font-size: 0.9rem;
+  }
+
+  .dayNumber {
+    font-size: 1rem;
+  }
+
+  .legend {
+    gap: 15px;
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,76 @@
+testcaseid,objecive,prerequeist,actions,inputs,expected output,actual output,comments,test results
+AC-001,Open Admin Collection page,Admin user logged in and API reachable,"Navigate to Admin Dashboard > Collection",N/A,"Collection page loads, controls and table visible",,,Not Run
+AC-002,Load specimen list from API,At least 1 specimen exists,"Open page and wait for loading to finish",N/A,"Loading spinner disappears and specimens are displayed",,,Not Run
+AC-003,Handle empty specimen list,No specimen records in DB,"Open page",N/A,"Message shown: No specimens found. Add your first specimen to get started.",,,Not Run
+AC-004,Handle specimen list API failure,Temporarily stop API or force 500 for GET /microbials,"Open page",N/A,"Page does not crash; loading ends; error logged",,,Not Run
+AC-005,Search by code_name,Specimens exist with known code_name,"Type query in search field",code_name keyword,"Only matching specimens shown",,,Not Run
+AC-006,Search by accession_no,Specimens with accession_no exist,"Type accession in search field",accession_no value,"Matching specimens shown",,,Not Run
+AC-007,Search by accession_number fallback,Specimens with accession_number exist,"Type accession in search field",accession_number value,"Matching specimens shown",,,Not Run
+AC-008,Search by project title,Specimens linked to projects,"Type project title in search field",project title keyword,"Matching specimens shown",,,Not Run
+AC-009,Search by locale,Specimens with locale values,"Type locale keyword in search field",locale keyword,"Matching specimens shown",,,Not Run
+AC-010,Search with no matches,Specimens exist,"Type random string",zzzz_not_found,"Table shows 0 matches state",,,Not Run
+AC-011,Sort by code_name ascending,At least 3 specimens with different codes,"Click Code header once",N/A,"Rows sorted ascending by code_name",,,Not Run
+AC-012,Sort by code_name descending,AC-011 executed,"Click Code header again",N/A,"Rows sorted descending by code_name",,,Not Run
+AC-013,Sort by accession_no,Specimens with mixed accession/no accession,"Click Accession header",N/A,"Rows sorted; null values handled safely",,,Not Run
+AC-014,Sort by project_id title,Specimens with different project titles,"Click Project header",N/A,"Rows sorted by populated project title",,,Not Run
+AC-015,Expand row details panel,Specimens exist,"Click specimen row",N/A,"Description/details panel expands for selected row",,,Not Run
+AC-016,Collapse row details panel,AC-015 executed,"Click same specimen row again",N/A,"Expanded panel collapses",,,Not Run
+AC-017,Open New Specimen modal,Admin Collection page loaded,"Click New Specimen button",N/A,"Add New Specimen modal opens",,,Not Run
+AC-018,Required validation - project_id,New Specimen modal open,"Leave project empty and click Save",Missing project_id,"Form blocks submit and highlights required field",,,Not Run
+AC-019,Required validation - code_name,New Specimen modal open,"Leave code_name empty and click Save",Missing code_name,"Form blocks submit",,,Not Run
+AC-020,Required validation - classification,New Specimen modal open,"Leave classification empty and click Save",Missing classification,"Form blocks submit",,,Not Run
+AC-021,Required validation - source,New Specimen modal open,"Leave source empty and click Save",Missing source,"Form blocks submit",,,Not Run
+AC-022,Required validation - date_accessed,New Specimen modal open,"Leave date_accessed empty and click Save",Missing date_accessed,"Form blocks submit",,,Not Run
+AC-023,Create specimen with minimal required fields,Project exists,"Fill required fields and Save",Valid required values,"Success alert shown; specimen appears in table; QR generated",,,Not Run
+AC-024,Create specimen with all optional fields,Project exists,"Fill all fields and Save",Valid complete payload,"Specimen saved with all entered values",,,Not Run
+AC-025,Upload valid image file,New/Edit Specimen modal open,"Upload image file",PNG/JPG/WebP under size limit,"Preview shown; file included in submit",,,Not Run
+AC-026,Upload unsupported image type,New/Edit Specimen modal open,"Try to upload unsupported file",e.g. .bmp or invalid mime,"Input should reject or backend should return error",,"If backend rejects, alert should show error",Not Run
+AC-027,Upload valid nucleotide FASTA file,Modal open,"Upload FASTA file",.fasta with nucleotide sequence,"File accepted; accession auto-filled if header contains accession",,,Not Run
+AC-028,Upload valid protein FASTA file,Modal open,"Upload FASTA file",.faa with amino acid sequence,"File accepted for BLAST pipeline",,,Not Run
+AC-029,Upload multi-FASTA file,Modal open,"Upload multi-entry FASTA",Multiple FASTA entries,"File accepted; backend validation handles total length",,,Not Run
+AC-030,Upload FASTA with NCBI header accession,Modal open,"Upload FASTA with header containing accession",e.g. >gi|...|ref|NC_000913.3|,"Accession Number field auto-populates",,,Not Run
+AC-031,Upload FASTA without accession in header,Modal open,"Upload FASTA lacking accession",Generic FASTA header,"No auto-fill; user can type accession manually",,,Not Run
+AC-032,Upload FASTA with invalid characters,Modal open,"Upload malformed FASTA then Save",Sequence with disallowed symbols,"Backend returns validation error with details; user sees alert",,,Not Run
+AC-033,Upload very short nucleotide sequence,Modal open,"Upload short nucleotide FASTA and submit",<30 nt,"Error: sequence too short for BLAST validation",,,Not Run
+AC-034,Upload very short protein sequence,Modal open,"Upload short protein FASTA and submit",<20 aa,"Error: sequence too short for BLAST validation",,,Not Run
+AC-035,Create specimen API failure handling,Force POST /microbials to fail,"Submit specimen form",Valid form data,"Error alert shown; modal stays open",,,Not Run
+AC-036,Edit existing specimen,Existing specimen record,"Click Edit icon, modify fields, Save",Updated values,"Success alert; table/detail reflects changes",,,Not Run
+AC-037,Edit specimen with new image replaces old,Existing specimen with old image,"Edit and upload new image then Save",Valid new image,"Old image replaced and new one visible",,,Not Run
+AC-038,Edit specimen with new FASTA replaces old,Existing specimen with old FASTA,"Edit and upload new FASTA then Save",Valid new FASTA,"Old FASTA replaced; fasta_sequence updated",,,Not Run
+AC-039,Delete specimen confirmation cancel,Specimen exists,"Click Delete then choose Cancel",N/A,"No deletion occurs",,,Not Run
+AC-040,Delete specimen confirmation accept,Specimen exists,"Click Delete then Confirm",N/A,"Success alert and record removed from table",,,Not Run
+AC-041,Delete specimen API failure handling,Force DELETE /microbials/:id failure,"Delete a specimen",N/A,"Error alert shown; record remains",,,Not Run
+AC-042,View specimen details navigation,Specimen exists,"Click Eye icon",N/A,"Navigates to specimen detail page with correct ID",,,Not Run
+AC-043,View with missing specimen ID,Inject malformed specimen object without _id,"Click Eye icon",_id undefined,"Alert: Error: Specimen ID is missing",,,Not Run
+AC-044,Detail page load success,Valid specimen ID route,"Open detail page",Specimen ID,"Specimen detail sections render",,,Not Run
+AC-045,Detail page invalid ID handling,Use invalid/nonexistent specimen ID,"Open detail page with invalid ID",Unknown ID,"No crash; error logged; graceful handling",,,Not Run
+AC-046,Submit BLAST from detail page success,Specimen has fasta_sequence,"Click Submit BLAST",N/A,"RID returned and saved; status starts pending",,,Not Run
+AC-047,Submit BLAST without fasta_sequence,Specimen has no fasta_sequence,"Click Submit BLAST",N/A,"Alert: No FASTA sequence available to submit for BLAST",,,Not Run
+AC-048,BLAST status WAITING handling,RID exists and still processing,"Check results manually or wait polling",RID pending,"UI keeps pending state; no crash",,,Not Run
+AC-049,BLAST status completed handling,BLAST results become ready,"Check results",RID ready,"Results displayed under genome/BLAST section",,,Not Run
+AC-050,BLAST status failed handling,Simulate NCBI failed status,"Check results",RID failed,"User gets failed message and polling stops",,,Not Run
+AC-051,BLAST status expired handling,RID expired in backend,"Check results",RID expired,"Status shown expired; user prompted to re-submit",,,Not Run
+AC-052,BLAST result parse error handling,Simulate malformed NCBI result,"Check results",Invalid response format,"Handled gracefully; retries or error alert per code path",,,Not Run
+AC-053,BLAST network timeout handling,Throttle/interrupt network during BLAST check,"Check results",N/A,"No crash; timeout handled; retry possible",,,Not Run
+AC-054,Genome tab shows BLAST hits when available,Specimen has blast_results.matches,"Open specimen detail genome tab",N/A,"Top hit and list of hits displayed",,,Not Run
+AC-055,Genome tab empty-state behavior,Specimen has no fasta/blast data,"Open genome tab",N/A,"No genome data message shown",,,Not Run
+AC-056,Accession links open NCBI from hit list,Specimen has blast hit accessions,"Click accession/hit link",Hit accession,"Opens NCBI nuccore page in new tab",,,Not Run
+AC-057,Manual accession_no entry persists,Modal open,"Type accession_no manually and save",Valid accession string,"Saved and visible in list/details",,,Not Run
+AC-058,Accession extraction does not overwrite manual value,Modal with manual accession entered,"Upload FASTA with different accession",Manual accession + FASTA accession,"Existing manual accession remains unchanged",,,Not Run
+AC-059,QR code generated on create,Create new specimen succeeds,"Save specimen then open detail",N/A,"QR code present and downloadable",,,Not Run
+AC-060,Download QR code action,Specimen has qr_code,"Click Download QR",N/A,"PNG file downloads with expected filename pattern",,,Not Run
+AC-061,Generate PDF report success,Detail page loaded,"Click PDF/Download action",N/A,"PDF file generated with specimen data",,,Not Run
+AC-062,PDF generation with missing image,Specimen has no image_url,"Generate PDF",N/A,"PDF still generated without image errors",,,Not Run
+AC-063,PDF generation with slow image fetch,Simulate delayed image URL,"Generate PDF",N/A,"Timeout handled; PDF still generated",,,Not Run
+AC-064,Security - XSS in text fields,Create specimen with script tags in text inputs,"Save and view details",<script>alert(1)</script>,"Text rendered safely; no script execution",,,Not Run
+AC-065,Large custom_fields set handling,Add many custom fields in modal,"Save specimen",20+ custom fields,"Saved correctly; UI remains responsive",,,Not Run
+AC-066,Concurrent update conflict behavior,Two admins edit same specimen simultaneously,"Save from both sessions",Different edits,"Latest save behavior observed and documented",,,Not Run
+AC-067,API validation error surfaced to user,Force backend validation error,"Submit form",Invalid payload,"Alert shows backend error.error message",,,Not Run
+AC-068,API CORS/network failure handling,Block API endpoint from browser,"Attempt list/load/save/delete",N/A,"User sees error alerts where applicable; no app crash",,,Not Run
+AC-069,Sort stability after search filter,Search then sort by a column,"Apply search then sort",Query + column,"Sorted order applies only to filtered dataset",,,Not Run
+AC-070,Reset modal state after close/reopen,Open modal, enter data, close, reopen new,"Close and open New Specimen modal",N/A,"Form resets to default empty values",,,Not Run
+AC-071,Edit modal prefill correctness,Open edit for existing specimen,"Click Edit",Existing specimen,"All fields prefilled from selected specimen",,,Not Run
+AC-072,Date formatting correctness in table detail,Specimen has date_accessed,"Expand row details",ISO date,"Displayed in local date format",,,Not Run
+AC-073,Long text handling in description,Very long description present,"Expand row and detail page",Long paragraph text,"Content wraps without layout break",,,Not Run
+AC-074,Classification fallback in table row,Specimen classification missing but project classification exists,"Load table",classification null,"Table shows project classification fallback",,,Not Run
+AC-075,Role access boundary (admin collection),Login as non-admin user,"Try to access admin collection route",Non-admin account,"Access should be denied/redirected as per auth policy",,"Dependent on route guard implementation",Not Run

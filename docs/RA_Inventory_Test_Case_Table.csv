@@ -1,0 +1,101 @@
+TestCaseId,Objective,Prerequisite,Actions,Inputs,Expected Output,Actual Output,Comments,Test Results
+RA-INV-001,Open RA Inventory page,Staff user logged in and token valid,"Navigate to RA Dashboard > Inventory",N/A,"Inventory page loads with table filters and actions",,,Not Run
+RA-INV-002,Route guard allows staff role,User role is staff,"Open RA inventory route directly",Valid staff token,"Page is accessible for staff",,,Not Run
+RA-INV-003,Route guard blocks non staff role,User role is admin or student,"Open RA inventory route directly",Non staff token,"User is redirected based on route policy",,,Not Run
+RA-INV-004,Initial fetch chemicals and batches success,API reachable and data exists,"Open inventory page",N/A,"Chemicals and batches load without error",,,Not Run
+RA-INV-005,Initial loading spinner state,Network delay simulated,"Refresh inventory page",N/A,"Loading spinner is shown until responses return",,,Not Run
+RA-INV-006,Chemicals fetch failure handling,Simulate chemicals endpoint failure,"Open inventory page",N/A,"Error banner shown failed to fetch chemicals",,,Not Run
+RA-INV-007,Batches fetch failure handling,Simulate batches endpoint failure,"Open inventory page",N/A,"Error banner shown failed to fetch batches",,,Not Run
+RA-INV-008,Filter only chemicals with active batches,Chemicals include some with no active batch,"Open page and inspect table",N/A,"Table excludes chemicals without active batch entries",,,Not Run
+RA-INV-009,Results count display accuracy,Inventory has records,"Observe results count text",N/A,"Showing X of Y chemicals reflects current filters and pagination",,,Not Run
+RA-INV-010,Empty table state,No matched chemicals after filters,"Apply restrictive filters",N/A,"No chemicals found message is shown",,,Not Run
+RA-INV-011,Search by chemical name full match,Known chemical exists,"Type full chemical name in search",Exact chemical name,"Matching chemical row appears",,,Not Run
+RA-INV-012,Search by chemical name partial match,Known chemical exists,"Type partial name in search",Partial text,"Rows filtered to partial matches",,,Not Run
+RA-INV-013,Search case insensitive,Known mixed case chemical exists,"Search with different case",Upper and lower case input,"Search still returns matching rows",,,Not Run
+RA-INV-014,Clear search restores filtered list,Search currently active,"Clear search field",N/A,"Rows return based on current type and unit filters",,,Not Run
+RA-INV-015,Type filter all,Multiple types exist,"Select type filter all",all,"All available types are included",,,Not Run
+RA-INV-016,Type filter specific value,Multiple types exist,"Select one type",Acid or Base,"Only selected type rows are shown",,,Not Run
+RA-INV-017,Unit filter all,Multiple units exist,"Select unit filter all",all,"All available units are included",,,Not Run
+RA-INV-018,Unit filter specific value,Multiple units exist,"Select one unit",mL or g,"Only selected unit rows are shown",,,Not Run
+RA-INV-019,Combined search plus type filter,Data supports both criteria,"Apply type filter then search",Type plus keyword,"Both criteria applied together",,,Not Run
+RA-INV-020,Combined search plus unit filter,Data supports both criteria,"Apply unit filter then search",Unit plus keyword,"Both criteria applied together",,,Not Run
+RA-INV-021,Combined type plus unit filters,Data includes multiple combinations,"Apply type and unit filters",Type and unit,"Rows satisfy both filters",,,Not Run
+RA-INV-022,Sort chemical id ascending,At least 3 rows with distinct ids,"Click Chem ID header once",N/A,"Rows sorted ascending by chemical_id",,,Not Run
+RA-INV-023,Sort chemical id descending,RA-INV-022 executed,"Click Chem ID header again",N/A,"Rows sorted descending by chemical_id",,,Not Run
+RA-INV-024,Sort name ascending,At least 3 rows with distinct names,"Click Name header once",N/A,"Rows sorted ascending by name",,,Not Run
+RA-INV-025,Sort name descending,RA-INV-024 executed,"Click Name header again",N/A,"Rows sorted descending by name",,,Not Run
+RA-INV-026,Sort type ascending,Rows with different types exist,"Click Type header once",N/A,"Rows sorted ascending by type",,,Not Run
+RA-INV-027,Sort quantity ascending,Rows with different quantities exist,"Click Quantity header once",N/A,"Rows sorted ascending by quantity field",,,Not Run
+RA-INV-028,Sort quantity descending,RA-INV-027 executed,"Click Quantity header again",N/A,"Rows sorted descending by quantity field",,,Not Run
+RA-INV-029,Sort unit ascending,Rows with different units exist,"Click Unit header once",N/A,"Rows sorted ascending by unit",,,Not Run
+RA-INV-030,Low stock status indicator,At least one chemical remaining less than or equal threshold,"Open inventory table",N/A,"Low Stocks badge and red row highlight are shown",,,Not Run
+RA-INV-031,In stock status indicator,At least one chemical remaining above threshold,"Open inventory table",N/A,"In Stock badge is shown",,,Not Run
+RA-INV-032,Remaining quantity calculation by batches,Chemical has multiple batches and used quantities,"Check remaining quantity column",N/A,"Remaining equals sum of max 0 quantity minus used per batch",,,Not Run
+RA-INV-033,Lot groups aggregation label,Chemical has multiple lot numbers,"Check Lot Groups cell",N/A,"Lot labels displayed as lot colon total unit values",,,Not Run
+RA-INV-034,No lot label fallback,Chemical batch lot missing,"Check Lot Groups cell",Missing lot_number,"Fallback NO-LOT label used",,,Not Run
+RA-INV-035,Location display from first batch,Chemical has first batch with location,"Inspect Location column",N/A,"Location shown from first associated batch",,,Not Run
+RA-INV-036,Expiration date display format,Chemical has expiration date in batch,"Inspect Exp Date column",ISO date,"Date shown in local date format",,,Not Run
+RA-INV-037,No batch qr fallback text,Batch qr_code is null,"Inspect QR Code column",N/A,"No QR text is shown",,,Not Run
+RA-INV-038,QR image click downloads file,Batch qr_code exists,"Click QR image",N/A,"QR image is downloaded with batch file name pattern",,,Not Run
+RA-INV-039,View batch action navigation,Chemical has at least one batch,"Click View Batches action",N/A,"Navigates to RA batch detail page with batch id",,,Not Run
+RA-INV-040,View batch action no batch safety,Chemical row has no first batch,"Click View Batches action",N/A,"No navigation occurs and page remains stable",,,Not Run
+RA-INV-041,Open Edit Chemical modal,Inventory row exists,"Click Edit action",N/A,"Edit Chemical modal opens with selected chemical data",,,Not Run
+RA-INV-042,Close Edit Chemical modal cancel,Edit modal open,"Click Cancel or close icon",N/A,"Edit modal closes without saving changes",,,Not Run
+RA-INV-043,Edit modal required name validation,Edit modal open,"Clear name and submit",Missing name,"Browser required validation prevents submit",,,Not Run
+RA-INV-044,Edit modal required type validation,Edit modal open,"Unset type and submit",Missing type,"Required validation prevents submit",,,Not Run
+RA-INV-045,Edit modal required quantity validation,Edit modal open,"Clear quantity and submit",Missing quantity,"Required validation prevents submit",,,Not Run
+RA-INV-046,Edit modal required unit validation,Edit modal open,"Unset unit and submit",Missing unit,"Required validation prevents submit",,,Not Run
+RA-INV-047,Edit modal required threshold validation,Edit modal open,"Clear threshold and submit",Missing threshold,"Required validation prevents submit",,,Not Run
+RA-INV-048,Edit chemical success,Valid record and API reachable,"Update one or more fields then submit",Valid payload,"Update request succeeds modal closes and list refreshes",,,Not Run
+RA-INV-049,Edit chemical API failure handling,Force chemical PUT endpoint failure,"Submit edit modal",Valid payload,"Error message displayed in modal",,,Not Run
+RA-INV-050,Edit modal loading state,Slow update response simulated,"Submit edit modal",Valid payload,"Update button shows Updating and becomes disabled",,,Not Run
+RA-INV-051,Open Add Chemical modal,Inventory page loaded,"Click Add Chemical",N/A,"Add New Chemical modal opens",,,Not Run
+RA-INV-052,Close Add Chemical modal cancel,Add modal open,"Click close icon",N/A,"Modal closes and no record is created",,,Not Run
+RA-INV-053,Add modal required name validation,Add modal open,"Leave name empty and submit",Missing name,"Submit blocked by required field",,,Not Run
+RA-INV-054,Add modal required type validation,Add modal open,"Leave type unset and submit",Missing type,"Submit blocked by required field",,,Not Run
+RA-INV-055,Add modal required quantity validation,Add modal open,"Leave quantity empty and submit",Missing quantity,"Submit blocked by required field",,,Not Run
+RA-INV-056,Add modal required unit validation,Add modal open,"Leave unit unset and submit",Missing unit,"Submit blocked by required field",,,Not Run
+RA-INV-057,Add modal required threshold validation,Add modal open,"Leave threshold empty and submit",Missing threshold,"Submit blocked by required field",,,Not Run
+RA-INV-058,Add modal required lot number validation,Add modal open,"Leave lot number empty and submit",Missing lot_number,"Modal shows Lot Number is required error",,,Not Run
+RA-INV-059,Add modal quantity must be positive,Add modal open,"Set quantity to zero and submit",quantity 0,"Validation error quantity must be greater than 0",,,Not Run
+RA-INV-060,Add modal threshold non negative,Add modal open,"Set threshold negative and submit",threshold negative,"Validation error threshold must be 0 or greater",,,Not Run
+RA-INV-061,Add modal threshold less than quantity,Add modal open,"Set threshold equal or greater than quantity and submit",threshold greater or equal quantity,"Validation error threshold must be less than quantity",,,Not Run
+RA-INV-062,Add modal custom type required when other selected,Add modal open,"Select type Other and submit without custom type",type Other and blank custom type,"Validation error prompts custom type",,,Not Run
+RA-INV-063,Add modal custom type submit success,Add modal open,"Select type Other fill custom type and submit",Valid custom type payload,"Chemical created successfully with custom type",,,Not Run
+RA-INV-064,Add modal lot suggestions appear,Existing same name and type plus previous lot numbers,"Type matching name and type",Matching name and type,"Lot number suggestions list populated",,,Not Run
+RA-INV-065,Add chemical success with standard type,API reachable and valid data,"Fill add form and submit",Valid payload,"Chemical and initial batch created list refreshes modal closes",,,Not Run
+RA-INV-066,Add chemical API error handling,Force chemicals POST endpoint failure,"Submit add modal",Valid payload,"Error displayed in add modal",,,Not Run
+RA-INV-067,Add modal loading state,Slow create response simulated,"Submit add modal",Valid payload,"Submit button disabled and shows processing state",,,Not Run
+RA-INV-068,Pagination appears when rows exceed page size,More than 10 filtered rows exist,"Open inventory table",N/A,"Pagination controls are visible",,,Not Run
+RA-INV-069,Pagination next page action,At least 2 pages exist,"Click Next",N/A,"Current page increments and new rows displayed",,,Not Run
+RA-INV-070,Pagination previous page action,Currently on page greater than one,"Click Previous",N/A,"Current page decrements and prior rows displayed",,,Not Run
+RA-INV-071,Pagination boundaries first page,Currently on first page,"Check Previous button state",N/A,"Previous button disabled on first page",,,Not Run
+RA-INV-072,Pagination boundaries last page,Currently on last page,"Check Next button state",N/A,"Next button disabled on last page",,,Not Run
+RA-INV-073,Filter change resets pagination,On page 2 or later with many rows,"Change search or filter",N/A,"Current page resets to page 1",,,Not Run
+RA-INV-074,Batch page loads from view action,Batch id exists and token valid,"Open batch detail route",Valid batch id,"Batch details load with usage form",,,Not Run
+RA-INV-075,Batch page invalid id handling,Invalid batch id used,"Open batch detail route",Invalid id,"Error shown with back to inventory action",,,Not Run
+RA-INV-076,Batch page loading spinner,Slow batch fetch simulated,"Open batch detail page",N/A,"Spinner displayed while loading",,,Not Run
+RA-INV-077,Back to inventory from batch page,Batch detail page open,"Click Back to Inventory",N/A,"User returns to RA inventory page",,,Not Run
+RA-INV-078,Batch remaining quantity calculation,Batch has quantity and used_quantity,"Inspect remaining section",N/A,"Remaining equals max 0 quantity minus used",,,Not Run
+RA-INV-079,Batch usage progress bar coloring,Batch percentage used at varying levels,"Inspect progress bar",N/A,"Color changes green yellow red according to thresholds",,,Not Run
+RA-INV-080,Usage form amount required,Batch page open,"Submit usage form with empty amount",Missing amount,"Required validation blocks submit",,,Not Run
+RA-INV-081,Usage form purpose required,Batch page open,"Submit usage form with empty purpose",Missing purpose,"Required validation blocks submit",,,Not Run
+RA-INV-082,Usage amount must be greater than zero,Batch page open,"Enter zero or negative amount and submit",amount less than or equal 0,"Validation error shown amount must be greater than 0",,,Not Run
+RA-INV-083,Usage unit conversion mass,Batch chemical unit in mass family,"Enter amount in compatible mass unit and submit",kg g or mg input,"Amount converts correctly to base unit before logging",,,Not Run
+RA-INV-084,Usage unit conversion volume,Batch chemical unit in volume family,"Enter amount in compatible volume unit and submit",L mL or uL input,"Amount converts correctly to base unit before logging",,,Not Run
+RA-INV-085,Usage incompatible unit prevented,Batch base unit incompatible with selected unit,"Submit usage with incompatible unit",invalid unit pair,"Conversion error shown cannot convert units",,,Not Run
+RA-INV-086,Usage over available quantity blocked,Batch has limited remaining amount,"Submit usage larger than remaining plus tolerance",Over limit amount,"Error shown cannot use more than available quantity",,,Not Run
+RA-INV-087,Usage near limit within rounding tolerance,Batch remaining and tolerance scenario exists,"Submit amount slightly above remaining within tolerance",Amount within tolerance,"System logs up to remaining without negative balance",,,Not Run
+RA-INV-088,Usage submit success,Batch has remaining and valid user id,"Submit valid usage form",Valid amount unit and purpose,"Batch used_quantity updated usage log created success alert shown",,,Not Run
+RA-INV-089,Usage update batch failure handling,Force batch PUT failure,"Submit usage form",Valid usage payload,"Error shown failed to update batch quantity",,,Not Run
+RA-INV-090,Usage log creation failure handling,Force usage POST failure after batch update,"Submit usage form",Valid usage payload,"Error shown failed to create usage log",,,Not Run
+RA-INV-091,Usage form disabled when batch consumed,Batch remaining quantity equals zero,"Open batch page",N/A,"Log Usage button disabled and consumed message shown",,,Not Run
+RA-INV-092,User not authenticated handling on batch page,No user data available,"Open batch page and attempt usage",Missing user session,"Error shown user not authenticated",,,Not Run
+RA-INV-093,No delete action in RA inventory table,RA inventory page loaded,"Inspect actions column",N/A,"Only view batch and edit actions available no delete action",,,Not Run
+RA-INV-094,RA inventory data refresh after add,Add operation succeeds,"Close add modal after success",N/A,"Table refreshes and new record appears per filters",,,Not Run
+RA-INV-095,RA inventory data refresh after edit,Edit operation succeeds,"Close edit modal after success",N/A,"Table refreshes and updated values appear",,,Not Run
+RA-INV-096,Error banner recovery after retry,Initial fetch fails then API restored,"Reload page",N/A,"Error state clears when fetch succeeds",,,Not Run
+RA-INV-097,Quantity and threshold decimal handling in add modal,Add modal open,"Enter decimal quantity and threshold values then submit",Quantity and threshold decimals,"Values accepted and saved according to validation rules",,,Not Run
+RA-INV-098,Unique type and unit filter values generated from data,Dataset has repeated type and unit values,"Open filter dropdowns",N/A,"Dropdowns list unique values without duplicates",,,Not Run
+RA-INV-099,Results count respects pagination and filtering,Dataset spans multiple pages,"Apply filters and inspect count",N/A,"Showing current items of filtered total displays accurately",,,Not Run
+RA-INV-100,Direct batch route protected by role,Non staff user logged in,"Open RA batch route directly",Non staff token,"Access denied or redirected by protected route",,,Not Run

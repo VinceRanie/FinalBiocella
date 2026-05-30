@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"2e1406eadc2f4750836547ab378d9dea","collectionName":"Genome_Sequence","type":"collection"}

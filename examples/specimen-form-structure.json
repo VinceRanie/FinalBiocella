@@ -1,0 +1,227 @@
+{
+  "fields": [
+    {
+      "name": "code",
+      "label": "Code",
+      "type": "text",
+      "exampleValue": "CBN1"
+    },
+    {
+      "name": "classification",
+      "label": "Classification",
+      "type": "select",
+      "exampleValue": "Bacteria"
+    },
+    {
+      "name": "locale",
+      "label": "Locale",
+      "type": "text",
+      "exampleValue": "Bantayan Island, Cebu"
+    },
+    {
+      "name": "project_fund",
+      "label": "Project Fund",
+      "type": "text",
+      "exampleValue": "NRCP Sediment Project"
+    },
+    {
+      "name": "source",
+      "label": "Source",
+      "type": "text",
+      "exampleValue": "Mangrove Sediment"
+    },
+    {
+      "name": "date_accessed",
+      "label": "Date Accessed",
+      "type": "date",
+      "exampleValue": ""
+    },
+    {
+      "name": "fasta_file",
+      "label": "FASTA File",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "onpg",
+      "label": "ONPG",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "glu",
+      "label": "GLU",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "accession_no",
+      "label": "Accession No",
+      "type": "text",
+      "exampleValue": "HM015629"
+    },
+    {
+      "name": "adh",
+      "label": "ADH",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "man",
+      "label": "MAN",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "similarity_%",
+      "label": "Similarity %",
+      "type": "text",
+      "exampleValue": 0.9516
+    },
+    {
+      "name": "ldc",
+      "label": "LDC",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "ino",
+      "label": "INO",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "odc",
+      "label": "ODC",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "sor",
+      "label": "SOR",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "catalase",
+      "label": "Catalase",
+      "type": "text",
+      "exampleValue": "Positive"
+    },
+    {
+      "name": "cit",
+      "label": "CIT",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "rha",
+      "label": "RHA",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "hemolysis",
+      "label": "Hemolysis",
+      "type": "text",
+      "exampleValue": "Beta-hemolysis"
+    },
+    {
+      "name": "h2s",
+      "label": "H2S",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "sac",
+      "label": "SAC",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "oxidase",
+      "label": "Oxidase",
+      "type": "text",
+      "exampleValue": "Negative"
+    },
+    {
+      "name": "ure",
+      "label": "URE",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "mel",
+      "label": "MEL",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "tda",
+      "label": "TDA",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "amy",
+      "label": "AMY",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "ind",
+      "label": "IND",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "ara",
+      "label": "ARA",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "vp",
+      "label": "VP",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "no2",
+      "label": "NO2",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "gel",
+      "label": "GEL",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "result",
+      "label": "Result",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "growth_media",
+      "label": "Growth Media",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "special_reqs",
+      "label": "Special Reqs",
+      "type": "text",
+      "exampleValue": ""
+    },
+    {
+      "name": "activity",
+      "label": "Activity",
+      "type": "text",
+      "exampleValue": ""
+    }
+  ],
+  "totalFields": 37
+}

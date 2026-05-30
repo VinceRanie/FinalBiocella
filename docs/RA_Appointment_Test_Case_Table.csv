@@ -1,0 +1,101 @@
+TestCaseId,Objective,Prerequisite,Actions,Inputs,Expected Output,Actual Output,Comments,Test Results
+RA-APT-001,Open RA Appointment page,Staff user authenticated,"Navigate to RA Dashboard > Appointments",N/A,"Appointment Management page loads",,,Not Run
+RA-APT-002,Default tab is pending,Page opened successfully,"Observe initial active tab",N/A,"Pending tab is active by default",,,Not Run
+RA-APT-003,Fetch appointments success,Backend API reachable,"Open page and wait for load",N/A,"Appointments list and status counters are populated",,,Not Run
+RA-APT-004,Loading state visibility,API response delayed,"Open page",N/A,"Loading spinner and loading message appear while fetching",,,Not Run
+RA-APT-005,Retry logic for transient fetch failure,Simulate temporary API failure then recovery,"Open page and wait for auto retry",N/A,"System retries up to 3 times and recovers if API returns",,,Not Run
+RA-APT-006,Final error after max retries,Force API failure for all retry attempts,"Open page",N/A,"Connection warning appears after retries exhausted",,,Not Run
+RA-APT-007,Manual retry button in warning panel,Connection warning visible,"Click Retry Now",N/A,"Fetch retriggered and data loads when API is healthy",,,Not Run
+RA-APT-008,Dismiss warning panel,Connection warning visible,"Click Dismiss",N/A,"Warning panel closes",,,Not Run
+RA-APT-009,Pending tab list filter,Dataset contains multiple statuses,"Select Pending tab",N/A,"Only appointments with pending status are shown",,,Not Run
+RA-APT-010,Ongoing tab list filter,Dataset contains ongoing records,"Select Ongoing tab",N/A,"Only appointments with ongoing status are shown",,,Not Run
+RA-APT-011,Visited tab list filter,Dataset contains visited records,"Select Visited tab",N/A,"Only appointments with visited status are shown",,,Not Run
+RA-APT-012,Denied tab list filter,Dataset contains denied records,"Select Denied tab",N/A,"Only appointments with denied status are shown",,,Not Run
+RA-APT-013,Empty state per tab,Selected tab has no records,"Open empty tab",N/A,"No tab specific appointments message is shown",,,Not Run
+RA-APT-014,Status count badges accuracy,Mixed dataset loaded,"Compare badge counts with underlying records",N/A,"Counters match records for pending ongoing visited denied",,,Not Run
+RA-APT-015,Search by student id exact match,Appointments loaded,"Type exact student id in search",student id,"Only matching appointment cards are shown",,,Not Run
+RA-APT-016,Search by student id partial match,Appointments loaded,"Type partial student id in search",partial id,"Matching subset is shown",,,Not Run
+RA-APT-017,Search by purpose case insensitive,Appointments loaded,"Type purpose keyword with mixed case",purpose keyword,"Purpose search is case insensitive",,,Not Run
+RA-APT-018,Search no results state,Tab has records before searching,"Type unmatched text",zzzz_not_found,"No cards appear while search has no matches",,,Not Run
+RA-APT-019,Clear search restores tab records,Search currently active,"Clear search input",N/A,"All records for active tab are shown again",,,Not Run
+RA-APT-020,Appointment card data render,At least one appointment available,"Inspect an appointment card",N/A,"Card shows student id department purpose schedule and badge",,,Not Run
+RA-APT-021,Remarks section visibility,Appointment has admin remarks,"Inspect card",admin_remarks present,"Remarks section appears",,,Not Run
+RA-APT-022,Remarks section hidden when absent,Appointment has no admin remarks,"Inspect card",admin_remarks null,"Remarks section is not shown",,,Not Run
+RA-APT-023,Denial reason visibility,Denied appointment has reason,"Open denied tab and inspect card",denial_reason present,"Denial reason section appears in red text",,,Not Run
+RA-APT-024,Denial reason hidden when absent,Denied record without reason,"Inspect card",denial_reason null,"Denial reason block not rendered",,,Not Run
+RA-APT-025,Date formatting on card,Appointment includes valid date and end_time,"Inspect schedule line",ISO date and end_time,"Date shown in readable format with end time slice",,,Not Run
+RA-APT-026,Open approve modal from pending card,Pending appointment exists,"Click Approve button",N/A,"Approve modal opens with student and date summary",,,Not Run
+RA-APT-027,Approve modal optional remarks,Approve modal open,"Enter remarks then submit",remarks text,"Request sends remarks and appointment is approved",,,Not Run
+RA-APT-028,Approve modal empty remarks allowed,Approve modal open,"Leave remarks blank and submit",blank remarks,"Approval succeeds without remarks",,,Not Run
+RA-APT-029,Approve success refreshes data,Approval endpoint available,"Approve one pending appointment",valid pending id,"Success alert shown modal closes and counters refresh",,,Not Run
+RA-APT-030,Approve transition to ongoing status,Backend follows approve then ongoing flow,"Approve a pending appointment",pending appointment,"Appointment is no longer in pending and appears in ongoing",,,Not Run
+RA-APT-031,Approve API failure handling,Force approve endpoint to fail,"Submit approve action",N/A,"Failure alert shown and modal remains for retry",,,Not Run
+RA-APT-032,Approve modal cancel action,Approve modal open,"Click Cancel",N/A,"Modal closes without state update",,,Not Run
+RA-APT-033,Open deny modal from pending card,Pending appointment exists,"Click Deny button",N/A,"Deny modal opens with student and date summary",,,Not Run
+RA-APT-034,Deny with reason success,Deny endpoint available,"Enter reason and submit",denial reason text,"Success alert shown modal closes data refreshes",,,Not Run
+RA-APT-035,Deny with empty reason behavior,Deny modal open,"Leave reason blank and submit",blank reason,"Request succeeds and backend defaults reason handling",,,Not Run
+RA-APT-036,Deny moves record to denied tab,Valid pending appointment selected,"Submit deny",N/A,"Record removed from pending and shown in denied tab",,,Not Run
+RA-APT-037,Deny API failure handling,Force deny endpoint failure,"Submit deny action",N/A,"Failure alert shown and no list state change",,,Not Run
+RA-APT-038,Deny modal cancel action,Deny modal open,"Click Cancel",N/A,"Modal closes without changes",,,Not Run
+RA-APT-039,Pending tab shows approve deny actions,Pending tab has records,"Inspect action buttons",N/A,"Approve and Deny actions are visible",,,Not Run
+RA-APT-040,Ongoing tab shows verify action,Ongoing tab has records,"Inspect action buttons",N/A,"Verify QR action is visible",,,Not Run
+RA-APT-041,Visited tab has no pending actions,Visited tab has records,"Inspect card actions",N/A,"Approve deny and verify actions are not shown",,,Not Run
+RA-APT-042,Denied tab has no pending actions,Denied tab has records,"Inspect card actions",N/A,"Approve deny and verify actions are not shown",,,Not Run
+RA-APT-043,Open scan modal from top button,Appointment page loaded,"Click Scan QR Code header button",N/A,"Scan modal opens in pre camera state",,,Not Run
+RA-APT-044,Open scan modal from ongoing card,Ongoing card available,"Click Verify QR on card",N/A,"Scan modal opens and scan state initialized",,,Not Run
+RA-APT-045,Scan modal start camera success,Camera permissions allowed,"Click Start Camera",N/A,"Camera stream starts and preview appears",,,Not Run
+RA-APT-046,Scan modal camera permission denied,Camera permission denied by browser,"Click Start Camera",N/A,"Alert indicates camera cannot be accessed",,,Not Run
+RA-APT-047,Scan modal fallback camera mode,Primary camera mode unavailable,"Start camera",N/A,"System retries alternate facing mode and starts stream",,,Not Run
+RA-APT-048,Switch camera while active,Camera currently running,"Click Switch Camera",N/A,"Current stream stops and alternate camera starts",,,Not Run
+RA-APT-049,Stop camera action,Camera currently running,"Click Stop Camera",N/A,"Camera stream stops and scanning loop halts",,,Not Run
+RA-APT-050,Scan modal cancel pre camera,Scan modal open and camera not active,"Click Cancel",N/A,"Modal closes",,,Not Run
+RA-APT-051,QR detection from live camera,Camera active with readable appointment QR,"Show QR in frame",valid appointment verify URL,"QR input is populated from decoded frame",,,Not Run
+RA-APT-052,QR detected banner appears,QR input populated in camera mode,"Observe scan modal",decoded qr value,"Detected QR banner displays shortened content",,,Not Run
+RA-APT-053,Auto verify valid appointment QR,Camera active and QR with token and id scanned,"Allow auto verify effect to run",valid verify URL,"Verification request sent automatically once per QR",,,Not Run
+RA-APT-054,Prevent repeated auto verify same QR,Same QR remains in frame after first verify trigger,"Keep camera on same code",same qrInput as last verified,"Auto verify does not repeatedly trigger for identical QR",,,Not Run
+RA-APT-055,Manual paste valid QR URL,Scan modal pre camera mode,"Paste valid verify URL in input",URL with token and id,"Auto verification triggers for pasted value",,,Not Run
+RA-APT-056,Pasted non URL QR content,Scan modal pre camera mode,"Paste non URL text",plain token text,"No URL parsing crash and no auto verify call",,,Not Run
+RA-APT-057,Verify QR success updates status,Verify endpoint returns success for ongoing appointment,"Verify valid QR",matching token plus appointment id,"Success alert shown modal closes appointment moves to visited",,,Not Run
+RA-APT-058,Verify QR invalid token mismatch,Token does not match appointment qr_code,"Verify QR",wrong token with valid id,"Invalid QR alert shown no status change",,,Not Run
+RA-APT-059,Verify QR for non ongoing appointment,Appointment status is pending visited or denied,"Verify QR",valid token for non ongoing record,"Alert states only ongoing appointments can be marked visited",,,Not Run
+RA-APT-060,Verify QR with missing qrCode field,Force request payload without qrCode,"Call verify endpoint",appointmentId only,"Backend returns QR code is required error",,,Not Run
+RA-APT-061,Verify QR invalid appointment id format,Provide non numeric appointment id,"Verify QR",appointmentId abc,"Backend returns invalid appointment id format",,,Not Run
+RA-APT-062,Verify QR appointment not found,Use nonexistent appointment id,"Verify QR",unknown id,"Backend returns appointment not found",,,Not Run
+RA-APT-063,Verify QR API server error handling,Force verify endpoint 500,"Verify QR",valid looking payload,"Error alert shown and modal remains usable",,,Not Run
+RA-APT-064,Close modal after successful verify,Successful QR verification occurred,"Observe modal state",N/A,"Modal closes and camera stops",,,Not Run
+RA-APT-065,Top scan button resets qr input,QR input had previous value,"Click top Scan QR Code then open modal",N/A,"QR input is reset when scan modal opens",,,Not Run
+RA-APT-066,Ongoing verify button resets lastVerifiedQR,lastVerifiedQR had previous value,"Open verify from ongoing card",N/A,"lastVerifiedQR reset allows new verification",,,Not Run
+RA-APT-067,Camera timeout handling,Video element fails to reach ready state,"Start camera with simulated no frames",N/A,"Timeout alert shown and camera stops",,,Not Run
+RA-APT-068,Video play promise rejection handling,Browser blocks autoplay despite permissions,"Start camera",N/A,"Play error alert shown and camera stops",,,Not Run
+RA-APT-069,Search scoped to active tab,Multiple statuses loaded with overlapping student ids,"Search in one tab",student id,"Only active tab records are searched",,,Not Run
+RA-APT-070,Tab switch clears stale error state,Error previously set and data loaded,"Switch tabs",N/A,"Error cleared when tab appointments update",,,Not Run
+RA-APT-071,Badge rendering for each status,Records exist for pending approved denied ongoing visited,"Inspect status badge text and color",N/A,"Badge text is uppercase and color maps to status",,,Not Run
+RA-APT-072,Approved status visibility behavior,Dataset includes approved status records,"Inspect displayed tabs and lists",approved records,"Approved records are not shown in tab filters unless moved to ongoing",,,Not Run
+RA-APT-073,Connection warning close button,Connection warning visible,"Click top right X on warning",N/A,"Warning is dismissed",,,Not Run
+RA-APT-074,Retry button disabled while loading,Warning visible and loading true,"Click Retry Now during loading",N/A,"Retry button disabled and shows retrying text",,,Not Run
+RA-APT-075,Header scan button opens modal while list loaded,List visible without errors,"Click Scan QR Code",N/A,"Scan modal opens without disrupting list state",,,Not Run
+RA-APT-076,Modal scroll behavior on small screen,Small viewport height,"Open any modal and inspect",N/A,"Modal remains usable with vertical scroll",,,Not Run
+RA-APT-077,Approve modal details correctness,Selected pending appointment set,"Open approve modal",N/A,"Displayed student id and date match selected appointment",,,Not Run
+RA-APT-078,Deny modal details correctness,Selected pending appointment set,"Open deny modal",N/A,"Displayed student id and date match selected appointment",,,Not Run
+RA-APT-079,Card hover and click stability,Appointments listed,"Hover cards and interact with buttons",N/A,"No UI jitter and actions remain clickable",,,Not Run
+RA-APT-080,Schedule line end time formatting,Appointment has valid ISO end_time,"Inspect schedule text",end_time value,"End time shown using HH:MM slice",,,Not Run
+RA-APT-081,Long purpose text rendering,Appointment with long purpose string exists,"Inspect card layout",long purpose value,"Purpose wraps without breaking card layout",,,Not Run
+RA-APT-082,Special characters in remarks display,Appointment has symbols in admin remarks,"Inspect remarks section",remarks with punctuation and symbols,"Remarks render as text without script execution",,,Not Run
+RA-APT-083,Special characters in denial reason display,Denied appointment contains symbols,"Inspect denied card",reason with punctuation and symbols,"Reason renders safely as plain text",,,Not Run
+RA-APT-084,Bulk pending approvals sequence,Several pending appointments available,"Approve multiple appointments one by one",multiple appointment ids,"Each approval updates counts and moves records to ongoing",,,Not Run
+RA-APT-085,Bulk denials sequence,Several pending appointments available,"Deny multiple appointments one by one",multiple appointment ids,"Each denial updates counts and moves records to denied",,,Not Run
+RA-APT-086,Concurrent tab switching during fetch,Fetch in progress,"Switch tabs quickly",N/A,"No crash and final list matches selected tab",,,Not Run
+RA-APT-087,Network interruption during approve,Drop connection before approve response,"Submit approve",valid appointment id,"Error alert shown and state remains unchanged",,,Not Run
+RA-APT-088,Network interruption during deny,Drop connection before deny response,"Submit deny",valid appointment id,"Error alert shown and state remains unchanged",,,Not Run
+RA-APT-089,Network interruption during verify,Drop connection during verify request,"Verify scanned QR",valid token and id,"Error alert shown and modal remains open for retry",,,Not Run
+RA-APT-090,Invalid QR URL missing token,Scan or paste verify url without token,"Provide malformed verify URL",missing token parameter,"No auto verify call due to incomplete parameters",,,Not Run
+RA-APT-091,Invalid QR URL missing id,Scan or paste verify url without id,"Provide malformed verify URL",missing id parameter,"No auto verify call due to incomplete parameters",,,Not Run
+RA-APT-092,Manual qr input cleared on stop camera,Camera active and qr detected,"Click Stop Camera",N/A,"qrInput resets to empty after stopping camera",,,Not Run
+RA-APT-093,No action buttons in denied tab cards,Denied tab records visible,"Inspect right action area",N/A,"No approve deny or verify buttons displayed",,,Not Run
+RA-APT-094,No action buttons in visited tab cards,Visited tab records visible,"Inspect right action area",N/A,"No approve deny or verify buttons displayed",,,Not Run
+RA-APT-095,Tab counts after verify success,Ongoing appointment verified to visited,"Complete successful QR verify",valid token and id,"Ongoing count decreases and visited count increases",,,Not Run
+RA-APT-096,Tab counts after deny success,Pending appointment denied,"Complete deny flow",valid pending id,"Pending count decreases and denied count increases",,,Not Run
+RA-APT-097,Tab counts after approve success,Pending appointment approved and moved ongoing,"Complete approve flow",valid pending id,"Pending count decreases and ongoing count increases",,,Not Run
+RA-APT-098,Manual close of scan modal while camera active,Camera running in scan modal,"Close modal using cancel path",N/A,"Modal closes and camera resources are released",,,Not Run
+RA-APT-099,Access control for RA appointment route,Non staff user session,"Open RA appointment URL",non staff role,"Route protection denies or redirects access",,,Not Run
+RA-APT-100,Security XSS safety in displayed fields,Appointment data contains script like content,"Render card and modal details",script payload in purpose remarks reason,"Content renders as text and does not execute scripts",,,Not Run

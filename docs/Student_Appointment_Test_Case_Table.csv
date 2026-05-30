@@ -1,0 +1,101 @@
+TestCaseId,Objective,Prerequisite,Actions,Inputs,Expected Output,Actual Output,Comments,Test Results
+ST-APP-001,Open Student Appointment module,Student user logged in,"Navigate to Users Dashboard > Appointment",N/A,"Student appointment calendar page loads",,,Not Run
+ST-APP-002,Student route direct access,Student role session available,"Open student appointment route directly",Valid session,"Route is accessible to student",,,Not Run
+ST-APP-003,Faculty route direct access,Faculty role session available,"Open student appointment route directly",Valid session,"Route is accessible to faculty",,,Not Run
+ST-APP-004,Unauthenticated route access blocked,No valid session,"Open student appointment route",No token,"Redirected to login or blocked by auth flow",,,Not Run
+ST-APP-005,Calendar month overview loads,Appointments API reachable,"Open appointment page",N/A,"Calendar renders day cells and month data",,,Not Run
+ST-APP-006,Calendar overview API failure fallback,Force calendar endpoint failure,"Open appointment page",N/A,"Page remains usable with safe empty calendar state",,,Not Run
+ST-APP-007,Calendar legend visible,Page loaded,"Check legend section",N/A,"Legend shows available partial booked unavailable states",,,Not Run
+ST-APP-008,Month navigation previous,Page loaded,"Click previous month arrow",N/A,"Calendar moves to prior month and refreshes overview",,,Not Run
+ST-APP-009,Month navigation next,Page loaded,"Click next month arrow",N/A,"Calendar moves to next month and refreshes overview",,,Not Run
+ST-APP-010,Weekday header render,Page loaded,"Inspect weekday labels",N/A,"Sun to Sat headers are displayed",,,Not Run
+ST-APP-011,Past dates disabled,Current and past dates visible,"Inspect past day cells",N/A,"Past dates are marked unavailable and not bookable",,,Not Run
+ST-APP-012,Today disabled,Current date visible,"Inspect today cell",N/A,"Today is disabled for booking",,,Not Run
+ST-APP-013,Sunday disabled,Calendar includes Sunday,"Inspect Sunday cells",N/A,"Sunday cells are disabled",,,Not Run
+ST-APP-014,Admin marked unavailable day disabled,Admin has blocked a date,"Inspect blocked date cell",Blocked date,"Date shows unavailable styling and cannot be booked",,,Not Run
+ST-APP-015,Unavailable reason tooltip shown,Blocked date has reason,"Hover blocked date",Blocked date,"Tooltip includes unavailable reason",,,Not Run
+ST-APP-016,Available day status indicator,Day has no bookings,"Inspect available day",N/A,"Available indicator is shown",,,Not Run
+ST-APP-017,Partially booked day indicator,Day has some bookings,"Inspect partial day",N/A,"Partial status indicator is shown",,,Not Run
+ST-APP-018,Fully booked day indicator,Day has no available slots,"Inspect fully booked day",N/A,"Booked status indicator is shown",,,Not Run
+ST-APP-019,Disabled day click behavior,Pick disabled date,"Click disabled day",Disabled date,"No booking modal opens",,,Not Run
+ST-APP-020,Available day click opens booking flow,Pick available date,"Click date cell",Available date,"Time slot flow opens for selected date",,,Not Run
+ST-APP-021,Availability fetch success,Date with valid response,"Click available date",Valid date,"Availability is loaded for selected date",,,Not Run
+ST-APP-022,Availability endpoint failure handling,Force availability request failure,"Click available date",Valid date,"No crash and booking flow handles failure safely",,,Not Run
+ST-APP-023,Modal close using X button,Time slot modal open,"Click close button",N/A,"Modal closes",,,Not Run
+ST-APP-024,Modal close by overlay click,Time slot modal open,"Click outside modal",N/A,"Modal closes",,,Not Run
+ST-APP-025,Unavailable date message in modal,Date marked unavailable and modal opened,"Open slot modal for unavailable date",Blocked date,"Modal shows unavailable date message with reason",,,Not Run
+ST-APP-026,Start time input visible,Modal open,"Inspect Start Time input",N/A,"Start time field is present",,,Not Run
+ST-APP-027,End time disabled until start selected,Modal open with no start selection,"Inspect End Time field",N/A,"End time input is disabled",,,Not Run
+ST-APP-028,End time enabled after start selected,Modal open,"Select start time",Valid start,"End time input becomes enabled",,,Not Run
+ST-APP-029,Purpose field appears after time range selected,Modal open,"Select start and end times",Valid times,"Purpose textarea is shown",,,Not Run
+ST-APP-030,Booked hour blocks displayed,Date has booked slots,"Open slot modal",Date with booked slots,"Booked hour blocks are listed",,,Not Run
+ST-APP-031,Summary shows selected date,Start time selected,"Check summary section",N/A,"Summary displays selected date",,,Not Run
+ST-APP-032,Summary shows selected time range,Start and end selected,"Check summary section",N/A,"Summary displays selected start and end time",,,Not Run
+ST-APP-033,Summary shows derived student id,User has email in session,"Open modal and select times",email-based id,"Summary shows student id derived from email",,,Not Run
+ST-APP-034,Summary warning when student id missing,Session missing user email info,"Open modal and select times",No student id source,"Warning shown that student ID cannot be found",,,Not Run
+ST-APP-035,Submit disabled until required fields complete,Modal open,"Leave end time or purpose empty",Missing required fields,"Confirm button remains disabled",,,Not Run
+ST-APP-036,Required validation for missing purpose,Times selected purpose blank,"Click confirm",No purpose,"Error indicates purpose is required",,,Not Run
+ST-APP-037,Required validation for missing times,Purpose entered but time incomplete,"Click confirm",Missing start or end,"Error indicates time slot is required",,,Not Run
+ST-APP-038,Start time before opening rejected,Modal open,"Set start time below opening",Start before earliest slot,"Validation error for operating hours",,,Not Run
+ST-APP-039,End time after closing rejected,Modal open,"Set end time beyond closing",End beyond latest end,"Validation error for operating hours",,,Not Run
+ST-APP-040,End time equal start rejected,Modal open,"Set same start and end",Equal times,"Error says end time must be later than start time",,,Not Run
+ST-APP-041,End time earlier than start rejected,Modal open,"Set end earlier than start",End earlier input,"Error says end time must be later than start",,,Not Run
+ST-APP-042,Maximum duration enforcement,Max duration configured to 3 hours,"Select span longer than max",Duration greater than max,"Error indicates maximum appointment duration",,,Not Run
+ST-APP-043,Overlap with booked start hour rejected,Date has booked start slot,"Choose booked start time and submit",Booked start hour,"Error indicates overlap with booked slots",,,Not Run
+ST-APP-044,Overlap across middle booked hour rejected,Date has booked middle hour,"Choose range that crosses booked hour",Range overlaps booked slot,"Error indicates overlap with booked slots",,,Not Run
+ST-APP-045,Non-overlapping adjacent range allowed,Date has booked range ending at boundary,"Choose adjacent non-overlap range",Adjacent time range,"Validation passes overlap check",,,Not Run
+ST-APP-046,Student id from localStorage userData fallback,userData exists in localStorage,"Open modal and prepare booking",Local userData,"Submission uses fallback student id and user id",,,Not Run
+ST-APP-047,Student id from localStorage user fallback,user key exists only,"Open modal and prepare booking",Local user object,"Submission uses fallback student id",,,Not Run
+ST-APP-048,Student id from userEmail fallback,userEmail exists only,"Open modal and prepare booking",localStorage userEmail,"Submission uses student id from userEmail",,,Not Run
+ST-APP-049,Submission blocked when student id unresolved,No user sources available,"Attempt confirm booking",No user identity info,"Error says could not identify student",,,Not Run
+ST-APP-050,Successful appointment booking,Valid slot and user info,"Click confirm appointment",Valid payload,"Success alert shown with appointment ID and modal closes",,,Not Run
+ST-APP-051,Post-booking calendar refresh,Successful booking completed,"Observe calendar after modal close",N/A,"Calendar overview refreshes to reflect new booking",,,Not Run
+ST-APP-052,Submit loading state on confirm,Booking request in progress,"Click confirm",Valid payload,"Button shows Booking state and prevents duplicate submission",,,Not Run
+ST-APP-053,Prevent double submit on slow network,Simulate delayed booking response,"Click confirm twice quickly",Valid payload,"Only one booking is processed",,,Not Run
+ST-APP-054,Backend unavailable date conflict handling,Date blocked in backend,"Submit booking for blocked date",Blocked date payload,"Booking rejected with unavailable date conflict",,,Not Run
+ST-APP-055,Backend schedule conflict handling,Another approved ongoing appointment overlaps,"Submit overlapping booking",Overlapping range,"Booking rejected with schedule conflict",,,Not Run
+ST-APP-056,Server-side validation error passthrough,Backend returns explicit error,"Submit invalid payload",Invalid payload,"Student sees backend validation message",,,Not Run
+ST-APP-057,Generic error fallback message,Backend returns unexpected error shape,"Submit booking",Unexpected error response,"UI shows generic booking failure message",,,Not Run
+ST-APP-058,Calendar day slot count updates after booking,Initial day had availability,"Book one hour slot",Valid booking,"Day status moves toward partial or booked accordingly",,,Not Run
+ST-APP-059,Fully booked date no new bookings,Date has all slots booked,"Open and attempt booking",Fully booked date,"No valid booking range accepted",,,Not Run
+ST-APP-060,Min advance notice enforced by UI,User tries to book same day,"Attempt same-day booking",Today date,"Booking not allowed by date disable logic",,,Not Run
+ST-APP-061,Department auto inclusion in payload,User profile has department,"Submit valid booking",User with department,"Payload includes department value",,,Not Run
+ST-APP-062,Department optional fallback behavior,User profile has no department,"Submit valid booking",No department value,"Booking still possible with empty department if backend allows",,,Not Run
+ST-APP-063,Time format conversion correctness,Modal selected times in HH:mm,"Submit booking",Start and end time,"Payload uses yyyy-MM-dd HH:mm:ss format",,,Not Run
+ST-APP-064,Booked slots list formatting,Date has multiple booked slots,"Open modal",Booked slots present,"Booked blocks display as hour windows",,,Not Run
+ST-APP-065,Calendar unavailable dates from admin reflected,Admin marks date unavailable,"Refresh calendar month",Blocked date in month,"Date appears unavailable in student calendar",,,Not Run
+ST-APP-066,Calendar unavailable dates removal reflected,Admin removes unavailable date,"Refresh calendar month",Previously blocked date,"Date returns to available or partial based on bookings",,,Not Run
+ST-APP-067,Boundary start at earliest slot,Select earliest valid start time,"Submit valid earliest range",Earliest slot start,"Booking accepted when no conflicts",,,Not Run
+ST-APP-068,Boundary end at latest valid end,Select latest valid end time,"Submit valid latest range",Latest end boundary,"Booking accepted when no conflicts",,,Not Run
+ST-APP-069,Cross-hour multi-hour valid booking,No overlapping booked hours,"Select multi-hour range within limit",Valid 2 to 3 hour range,"Booking accepted",,,Not Run
+ST-APP-070,One-hour booking valid path,No conflicts for one hour slot,"Select 1-hour range and submit",Valid one hour range,"Booking accepted",,,Not Run
+ST-APP-071,Purpose long text handling,Enter long purpose text,"Submit valid booking",Long purpose input,"Purpose accepted without UI break",,,Not Run
+ST-APP-072,Purpose special characters handling,Enter symbols and punctuation in purpose,"Submit valid booking",Special characters,"Input handled safely and booking logic remains stable",,,Not Run
+ST-APP-073,XSS safety in purpose text,Enter script-like payload,"Submit booking and inspect displays","<script>alert(1)</script>","Payload treated as text and not executed",,,Not Run
+ST-APP-074,Timezone display consistency in calendar,User browser timezone differs,"Open and inspect month/day states",Different timezone,"Date status remains consistent with backend day mapping",,,Not Run
+ST-APP-075,Month switch repeated requests stability,Rapidly navigate months,"Click prev and next repeatedly",Rapid navigation,"UI remains responsive and no crash",,,Not Run
+ST-APP-076,Refresh during open modal behavior,Modal open then page reload,"Reload browser",N/A,"App returns to stable initial calendar state",,,Not Run
+ST-APP-077,Network interruption during submit,Disconnect during booking,"Click confirm while offline",Valid form then offline,"Error shown and app remains usable",,,Not Run
+ST-APP-078,Network interruption during calendar load,Disconnect before opening page,"Open appointment module",Offline network,"Safe fallback shown and no crash",,,Not Run
+ST-APP-079,No access to approve action in student UI,Student appointment module loaded,"Inspect available controls",N/A,"No approve action is available",,,Not Run
+ST-APP-080,No access to deny action in student UI,Student appointment module loaded,"Inspect available controls",N/A,"No deny action is available",,,Not Run
+ST-APP-081,No access to QR scan action in student UI,Student appointment module loaded,"Inspect available controls",N/A,"No QR scan verify action is available",,,Not Run
+ST-APP-082,No access to unavailable-date admin controls in student UI,Student appointment module loaded,"Inspect page controls",N/A,"No mark/remove unavailable date controls shown",,,Not Run
+ST-APP-083,No admin-style status management tabs in student calendar module,Student appointment module loaded,"Inspect page layout",N/A,"Student module stays focused on calendar booking not admin RA workflow",,,Not Run
+ST-APP-084,Student cannot approve via direct API,Student token/session available,"Call appointments/{id}/approve directly",Appointment id and remarks,"Request should be denied by role policy",,,Not Run
+ST-APP-085,Student cannot deny via direct API,Student token/session available,"Call appointments/{id}/deny directly",Appointment id and reason,"Request should be denied by role policy",,,Not Run
+ST-APP-086,Student cannot verify QR via direct API,Student token/session available,"Call appointments/verify-qr directly",QR payload,"Request should be denied by role policy",,,Not Run
+ST-APP-087,Student cannot mark no-show via direct API,Student token/session available,"Call appointments/{id}/no-show directly",Appointment id,"Request should be denied by role policy",,,Not Run
+ST-APP-088,Student cannot mark unavailable dates via direct API,Student token/session available,"Call appointments/unavailable-dates POST",Date and reason,"Request should be denied by role policy",,,Not Run
+ST-APP-089,Student cannot remove unavailable dates via direct API,Student token/session available,"Call appointments/unavailable-dates/{date} DELETE",Date,"Request should be denied by role policy",,,Not Run
+ST-APP-090,Student appointment list privacy enforcement,Multiple users have appointments,"Fetch own appointment views",Student identity context,"Student sees only their own appointments",,,Not Run
+ST-APP-091,Student cannot modify other user appointment,Two users with distinct appointments,"Attempt update another user appointment",Foreign appointment id,"Request should be denied by ownership policy",,,Not Run
+ST-APP-092,Student cannot delete other user appointment,Two users with distinct appointments,"Attempt delete another user appointment",Foreign appointment id,"Request should be denied by ownership policy",,,Not Run
+ST-APP-093,Student cannot read other user appointment by id,Known appointment id of another user,"Call appointments/{id}",Foreign appointment id,"Request should be denied or masked by access policy",,,Not Run
+ST-APP-094,Booked date summary with unavailable date coexistence,Month has both blocked dates and booked dates,"Open month view",Mixed calendar data,"Both day states render correctly",,,Not Run
+ST-APP-095,Booked count and available count consistency,Availability response includes counts,"Inspect modal and chosen date",N/A,"Counts align with time slot states",,,Not Run
+ST-APP-096,End-to-end student booking happy path smoke test,Valid user and free slot,"Open module choose date choose time input purpose submit",Normal student journey,"Appointment request completes successfully",,,Not Run
+ST-APP-097,End-to-end blocked-date rejection smoke test,Admin blocked target date,"Try to book blocked date",Blocked date journey,"Student receives clear rejection and can choose another date",,,Not Run
+ST-APP-098,End-to-end conflict rejection smoke test,Competing approved ongoing appointment exists,"Try overlapping booking",Overlapping journey,"Student receives conflict error and booking not created",,,Not Run
+ST-APP-099,Responsive layout mobile usability,Use phone viewport,"Open calendar and modal on mobile",Mobile viewport,"Calendar and modal remain usable without layout break",,,Not Run
+ST-APP-100,Keyboard accessibility basic booking flow,Use keyboard navigation only,"Navigate date modal fields and submit",Keyboard input,"Core interactions are reachable and operable via keyboard",,,Not Run

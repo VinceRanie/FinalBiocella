@@ -1,0 +1,65 @@
+{
+  "fields": [
+    "__EMPTY",
+    "Code:",
+    "CBN1",
+    "__EMPTY_1",
+    "__EMPTY_2",
+    "Classification:",
+    "Bacteria",
+    "__EMPTY_3"
+  ],
+  "sampleData": [
+    {
+      "__EMPTY": "",
+      "Code:": "Locale:",
+      "CBN1": "Bantayan Island, Cebu",
+      "__EMPTY_1": "",
+      "__EMPTY_2": "",
+      "Classification:": "Project Fund:",
+      "Bacteria": "NRCP Sediment Project",
+      "__EMPTY_3": ""
+    },
+    {
+      "__EMPTY": "",
+      "Code:": "Source:",
+      "CBN1": "Mangrove Sediment",
+      "__EMPTY_1": "",
+      "__EMPTY_2": "",
+      "Classification:": "Date Accessed:",
+      "Bacteria": "",
+      "__EMPTY_3": ""
+    },
+    {
+      "__EMPTY": "",
+      "Code:": "Summary of Information",
+      "CBN1": "",
+      "__EMPTY_1": "",
+      "__EMPTY_2": "",
+      "Classification:": "",
+      "Bacteria": "",
+      "__EMPTY_3": ""
+    },
+    {
+      "__EMPTY": "",
+      "Code:": "16s rRNA Gene Sequencing",
+      "CBN1": "",
+      "__EMPTY_1": "",
+      "__EMPTY_2": "Substrate Assimilation (API)",
+      "Classification:": "",
+      "Bacteria": "",
+      "__EMPTY_3": ""
+    },
+    {
+      "__EMPTY": "",
+      "Code:": "FASTA File:",
+      "CBN1": "",
+      "__EMPTY_1": "",
+      "__EMPTY_2": "ONPG:",
+      "Classification:": "",
+      "Bacteria": "GLU:",
+      "__EMPTY_3": ""
+    }
+  ],
+  "headerRowIndex": 11
+}
