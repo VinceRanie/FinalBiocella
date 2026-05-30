@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://bioapi.dcism.org/biocella-api";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://bioapi.dcism.org";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
