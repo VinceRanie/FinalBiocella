@@ -1,7 +1,7 @@
 # 🚀 Backend Deployment to web.dcism.org
 
 ## 📋 Your Server Details
-- **Server URL**: https://22102959.dcism.org
+- **Server URL**: https://bioapi.dcism.org
 - **Host**: web.dcism.org
 - **Username**: s22102959
 - **SSH Port**: 22077
@@ -147,7 +147,7 @@ curl http://localhost:3000/api/chemicals
 Should return JSON data or 404 (if no chemicals exist yet).
 
 ### Check if accessible externally:
-Try visiting: `https://22102959.dcism.org:3000/api/chemicals`
+Try visiting: `https://bioapi.dcism.org:3000/api/chemicals`
 
 If it doesn't work, you might need to:
 1. Configure reverse proxy (Apache/Nginx)

@@ -250,7 +250,7 @@ exports.generateQRCode = async (appointmentId) => {
   const qrData = crypto.randomBytes(16).toString('hex');
   
   // Create a neutral scan URL so scanner role can be resolved by the frontend.
-  const baseUrl = (process.env.FRONTEND_URL || 'https://testbiocella.dcism.org').replace(/\/+$/, '');
+  const baseUrl = (process.env.FRONTEND_URL || 'https://biocella.dcism.org').replace(/\/+$/, '');
   const verificationUrl = `${baseUrl}/scan/appointment?token=${qrData}&id=${appointmentId}`;
   
   // Generate QR code with the URL

@@ -31,14 +31,14 @@ Click "Environment Variables" and add:
 
 ```
 Name:  NEXT_PUBLIC_API_URL
-Value: https://22102959.dcism.org
+Value: https://bioapi.dcism.org
 ```
 
-**Your Backend Server:** web.dcism.org (https://22102959.dcism.org)
+**Your Backend Server:** web.dcism.org (https://bioapi.dcism.org)
 
 ⚠️ **Note**: If your Node.js app runs on a specific port (like 3000), you might need:
 ```
-https://22102959.dcism.org:3000
+https://bioapi.dcism.org:3000
 ```
 
 Test which one works after deployment.

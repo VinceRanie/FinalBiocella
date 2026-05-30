@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const DEFAULT_API_BASE_URL = "https://22102959.dcism.org/biocella-api";
+const DEFAULT_API_BASE_URL = "https://bioapi.dcism.org/biocella-api";
 const ENV_API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_BASE_URL).replace(/\/$/, "");
 
 type MicrobialItem = {

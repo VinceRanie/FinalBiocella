@@ -5,7 +5,7 @@ async function checkProjects() {
   try {
     console.log('🔍 Fetching projects from server...\n');
     
-    const response = await fetch('https://22102959.dcism.org/biocella-api/projects');
+    const response = await fetch('https://bioapi.dcism.org/biocella-api/projects');
     
     if (!response.ok) {
       console.error('❌ Failed to fetch:', response.status, response.statusText);

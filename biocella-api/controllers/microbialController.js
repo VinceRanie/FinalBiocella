@@ -303,7 +303,7 @@ const generateSpecimenQRCode = async (specimenId) => {
   const qrToken = crypto.randomBytes(16).toString('hex');
   
   // Create role-resolved scan URL.
-  const baseUrl = (process.env.FRONTEND_URL || 'https://testbiocella.dcism.org').replace(/\/+$/, '');
+  const baseUrl = (process.env.FRONTEND_URL || 'https://biocella.dcism.org').replace(/\/+$/, '');
   const verificationUrl = `${baseUrl}/scan/specimen/${specimenId}?token=${qrToken}`;
   
   // Generate QR code as data URL

@@ -67,7 +67,7 @@ const logCollectionActivity = async ({ req, specimen, action, status }) => {
 
 const generateSpecimenQRCode = async (specimenId) => {
   const qrToken = crypto.randomBytes(16).toString('hex');
-  const baseUrl = (process.env.FRONTEND_URL || 'https://testbiocella.dcism.org').replace(/\/+$/, '');
+  const baseUrl = (process.env.FRONTEND_URL || 'https://biocella.dcism.org').replace(/\/+$/, '');
   const verificationUrl = `${baseUrl}/scan/specimen/${specimenId}?token=${qrToken}`;
   const qrCodeDataUrl = await QRCode.toDataURL(verificationUrl);
 

@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '22102959.dcism.org',
+        hostname: 'bioapi.dcism.org',
         pathname: '/biocella-api/**',
       },
       {

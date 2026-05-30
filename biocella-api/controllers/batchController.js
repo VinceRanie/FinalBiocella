@@ -57,7 +57,7 @@ exports.create = async (req, res) => {
     console.log('Batch created with ID:', batchId);
     
     // Generate QR code with role-resolved scan URL.
-    const baseUrl = (process.env.FRONTEND_URL || 'https://testbiocella.dcism.org').replace(/\/+$/, '');
+    const baseUrl = (process.env.FRONTEND_URL || 'https://biocella.dcism.org').replace(/\/+$/, '');
     const qrUrl = `${baseUrl}/scan/batch/${batchId}`;
     const qrCodeDataURL = await QRCode.toDataURL(qrUrl);
     
