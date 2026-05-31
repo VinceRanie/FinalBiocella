@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://bioapi.dcism.org/biocella-api';
+const API_BASE_URL = process.env.BACKEND_INTERNAL_URL || 'http://127.0.0.1:3000';
 
 export async function GET(
   request: NextRequest,
@@ -12,7 +12,7 @@ export async function GET(
     
     console.log(`[API Route] Fetching appointments with status: ${status}`);
     console.log(`[API Route] Environment: ${process.env.NODE_ENV}`);
-    console.log(`[API Route] API_BASE_URL from env: ${process.env.NEXT_PUBLIC_API_URL || 'NOT SET'}`);
+    console.log(`[API Route] API_BASE_URL from env: ${process.env.BACKEND_INTERNAL_URL || 'NOT SET'}`);
     console.log(`[API Route] Using API_BASE_URL: ${API_BASE_URL}`);
     
     // Validate status

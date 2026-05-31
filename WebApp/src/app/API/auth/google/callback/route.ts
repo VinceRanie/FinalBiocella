@@ -7,10 +7,10 @@ import { requireEnv } from "@/app/API/lib/routeEnv";
 // then redirect to the finalize form with profile data in the URL.
 
 export async function GET(request: NextRequest) {
-  const env = requireEnv(["NEXT_PUBLIC_API_URL"] as const);
+  const env = requireEnv(["BACKEND_INTERNAL_URL"] as const);
   if (!env.ok) return env.response;
 
-  const API_BASE_URL = env.values.NEXT_PUBLIC_API_URL;
+  const API_BASE_URL = env.values.BACKEND_INTERNAL_URL;
   const clientId = process.env.GMAIL_CLIENT_ID || process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const clientSecret = process.env.GMAIL_CLIENT_SECRET || process.env.GOOGLE_CLIENT_SECRET;
 

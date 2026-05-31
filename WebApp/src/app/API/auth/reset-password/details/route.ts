@@ -3,9 +3,9 @@ import { requireEnv } from "@/app/API/lib/routeEnv";
 
 export async function GET(request: NextRequest) {
   try {
-    const env = requireEnv(["NEXT_PUBLIC_API_URL"] as const);
+    const env = requireEnv(["BACKEND_INTERNAL_URL"] as const);
     if (!env.ok) return env.response;
-    const API_BASE_URL = env.values.NEXT_PUBLIC_API_URL;
+    const API_BASE_URL = env.values.BACKEND_INTERNAL_URL;
 
     const { searchParams } = new URL(request.url);
     const token = searchParams.get("token");
