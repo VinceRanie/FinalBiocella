@@ -39,7 +39,10 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use('/', mainRoutes);
+// Allow mounting the API under a configurable base path (e.g. /biocella-api)
+const BASE_PATH = process.env.BACKEND_BASE_PATH || '/';
+app.use(BASE_PATH, mainRoutes);
+console.log(`Using backend base path: ${BASE_PATH}`);
 
 app.use((err, req, res, next) => {
   console.error('❌ Global error handler caught:', err);
