@@ -80,7 +80,8 @@ const toAbsoluteImageUrl = (apiBaseUrl: string, rawPath: string) => {
   return `${base}/${normalized}`;
 };
 
-const toAnnouncementImageUrl = (apiBaseUrl: string, rawPath: string) => toAbsoluteImageUrl(apiBaseUrl, rawPath);
+const toUploadsBaseUrl = (apiBaseUrl: string) => apiBaseUrl.replace(/\/biocella-api\/?$/, "");
+const toAnnouncementImageUrl = (uploadsBaseUrl: string, rawPath: string) => toAbsoluteImageUrl(uploadsBaseUrl, rawPath);
 
 const pickRandom = <T,>(items: T[]): T | null => {
   if (!items.length) return null;
@@ -132,6 +133,7 @@ const fetchJson = async (url: string) => {
 };
 
 const fetchHomepageStats = async (apiBaseUrl: string): Promise<HomepageStats | null> => {
+  const uploadsBaseUrl = toUploadsBaseUrl(apiBaseUrl);
   const allMicrobialsData = await fetchJson(`${apiBaseUrl}/microbials?role=staff`);
   if (!Array.isArray(allMicrobialsData)) {
     return null;
@@ -158,7 +160,7 @@ const fetchHomepageStats = async (apiBaseUrl: string): Promise<HomepageStats | n
     .filter(isPublished)
     .map((item) => ({
       classification: getClassification(item),
-      imageUrl: toAbsoluteImageUrl(apiBaseUrl, String(item.image_url || "")),
+      imageUrl: toAbsoluteImageUrl(uploadsBaseUrl, String(item.image_url || "")),
     }))
     .filter((item) => Boolean(item.imageUrl));
 
@@ -186,7 +188,7 @@ const fetchHomepageStats = async (apiBaseUrl: string): Promise<HomepageStats | n
           description: String(item.description || '').trim(),
           image_urls: Array.isArray(item.image_urls)
             ? item.image_urls
-                .map((imageUrl) => toAnnouncementImageUrl(apiBaseUrl, String(imageUrl || '')))
+                .map((imageUrl) => toAnnouncementImageUrl(uploadsBaseUrl, String(imageUrl || '')))
                 .filter((imageUrl): imageUrl is string => Boolean(imageUrl))
             : [],
           links: Array.isArray(item.links)

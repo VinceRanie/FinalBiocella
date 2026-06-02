@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { API_URL } from "@/config/api";
+import { UPLOADS_BASE_URL } from "@/config/api";
 
 type AnnouncementLink = {
   label: string;
@@ -49,7 +49,7 @@ const formatRelativeDate = (value: string | null) => {
 
 const normalizeImageUrl = (value: string) => {
   if (/^https?:\/\//i.test(value)) return value;
-  return `${API_URL}${value.startsWith("/") ? value : `/${value}`}`;
+  return `${UPLOADS_BASE_URL}${value.startsWith("/") ? value : `/${value}`}`;
 };
 
 const renderLinkedText = (text: string) => {
